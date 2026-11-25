@@ -9,11 +9,21 @@
  * tests below using forceGC().
  */
 
-// seed:leak-imports:start
-import { TimeModel } from "../src/common/TimeModel.js";
-// seed:leak-imports:end
+import { ChangeOfBasisModel } from "../src/basis/model/ChangeOfBasisModel.js";
+import { EigenvectorsModel } from "../src/eigen/model/EigenvectorsModel.js";
+import { ProjectionModel } from "../src/projection/model/ProjectionModel.js";
+import { SpanModel } from "../src/span/model/SpanModel.js";
+import { SVDModel } from "../src/svd/model/SVDModel.js";
+import { SystemsModel } from "../src/systems/model/SystemsModel.js";
+import { TransformModel } from "../src/transform/model/TransformModel.js";
 import { describeDisposalLeaks } from "./helpers/memoryLeak.js";
 
-// seed:leak-cases:start
-describeDisposalLeaks([{ name: "TimeModel", create: () => new TimeModel(), idempotentDispose: true }]);
-// seed:leak-cases:end
+describeDisposalLeaks([
+  { name: "SpanModel", create: () => new SpanModel() },
+  { name: "TransformModel", create: () => new TransformModel() },
+  { name: "SystemsModel", create: () => new SystemsModel() },
+  { name: "EigenvectorsModel", create: () => new EigenvectorsModel() },
+  { name: "ProjectionModel", create: () => new ProjectionModel() },
+  { name: "ChangeOfBasisModel", create: () => new ChangeOfBasisModel() },
+  { name: "SVDModel", create: () => new SVDModel() },
+]);

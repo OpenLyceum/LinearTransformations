@@ -1,21 +1,73 @@
 {
-  "title": "Plantilla de Simulación",
+  "title": "Linear Transformations",
   "screens": {
-    "sim": "Simulación"
+    "span": "Span",
+    "transform": "Transform",
+    "systems": "Systems",
+    "eigen": "Eigenvectors",
+    "projection": "Projection",
+    "basis": "Change of Basis",
+    "svd": "SVD"
   },
   "a11y": {
-    "screenSummary": {
-      "playArea": "El área de juego muestra el contenido principal de la simulación.",
-      "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-      "interactionHint": "Explora la simulación interactuando con sus controles."
+    "span": {
+      "screenSummary": {
+        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
+        "interactionHint": "Explora la simulación interactuando con sus controles."
+      },
+      "currentDetails": "La simulación está en su estado inicial."
     },
-    "currentDetails": "La simulación está en su estado inicial.",
-    "controls": {
-      "exampleControl": "Control de ejemplo"
+    "transform": {
+      "screenSummary": {
+        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
+        "interactionHint": "Explora la simulación interactuando con sus controles."
+      },
+      "currentDetails": "La simulación está en su estado inicial."
+    },
+    "systems": {
+      "screenSummary": {
+        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
+        "interactionHint": "Explora la simulación interactuando con sus controles."
+      },
+      "currentDetails": "La simulación está en su estado inicial."
+    },
+    "eigen": {
+      "screenSummary": {
+        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
+        "interactionHint": "Explora la simulación interactuando con sus controles."
+      },
+      "currentDetails": "La simulación está en su estado inicial."
+    },
+    "projection": {
+      "screenSummary": {
+        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
+        "interactionHint": "Explora la simulación interactuando con sus controles."
+      },
+      "currentDetails": "La simulación está en su estado inicial."
+    },
+    "basis": {
+      "screenSummary": {
+        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
+        "interactionHint": "Explora la simulación interactuando con sus controles."
+      },
+      "currentDetails": "La simulación está en su estado inicial."
+    },
+    "svd": {
+      "screenSummary": {
+        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
+        "interactionHint": "Explora la simulación interactuando con sus controles."
+      },
+      "currentDetails": "La simulación está en su estado inicial."
     }
   },
   "preferences": {
-    "title": "Simulación",
-    "exampleToggle": "Ejemplo de alternancia"
+    "title": "Simulación"
   }
 }

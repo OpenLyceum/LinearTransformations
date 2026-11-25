@@ -1,21 +1,73 @@
 {
-  "title": "SceneryStack Template",
+  "title": "Linear Transformations",
   "screens": {
-    "sim": "Sim"
+    "span": "Span",
+    "transform": "Transform",
+    "systems": "Systems",
+    "eigen": "Eigenvectors",
+    "projection": "Projection",
+    "basis": "Change of Basis",
+    "svd": "SVD"
   },
   "a11y": {
-    "screenSummary": {
-      "playArea": "The play area shows the main simulation content.",
-      "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-      "interactionHint": "Explore the simulation by interacting with its controls."
+    "span": {
+      "screenSummary": {
+        "playArea": "The play area shows the main simulation content.",
+        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
+        "interactionHint": "Explore the simulation by interacting with its controls."
+      },
+      "currentDetails": "The simulation is in its initial state."
     },
-    "currentDetails": "The simulation is in its initial state.",
-    "controls": {
-      "exampleControl": "Example control"
+    "transform": {
+      "screenSummary": {
+        "playArea": "The play area shows the main simulation content.",
+        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
+        "interactionHint": "Explore the simulation by interacting with its controls."
+      },
+      "currentDetails": "The simulation is in its initial state."
+    },
+    "systems": {
+      "screenSummary": {
+        "playArea": "The play area shows the main simulation content.",
+        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
+        "interactionHint": "Explore the simulation by interacting with its controls."
+      },
+      "currentDetails": "The simulation is in its initial state."
+    },
+    "eigen": {
+      "screenSummary": {
+        "playArea": "The play area shows the main simulation content.",
+        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
+        "interactionHint": "Explore the simulation by interacting with its controls."
+      },
+      "currentDetails": "The simulation is in its initial state."
+    },
+    "projection": {
+      "screenSummary": {
+        "playArea": "The play area shows the main simulation content.",
+        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
+        "interactionHint": "Explore the simulation by interacting with its controls."
+      },
+      "currentDetails": "The simulation is in its initial state."
+    },
+    "basis": {
+      "screenSummary": {
+        "playArea": "The play area shows the main simulation content.",
+        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
+        "interactionHint": "Explore the simulation by interacting with its controls."
+      },
+      "currentDetails": "The simulation is in its initial state."
+    },
+    "svd": {
+      "screenSummary": {
+        "playArea": "The play area shows the main simulation content.",
+        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
+        "interactionHint": "Explore the simulation by interacting with its controls."
+      },
+      "currentDetails": "The simulation is in its initial state."
     }
   },
   "preferences": {
-    "title": "Simulation",
-    "exampleToggle": "Example Toggle"
+    "title": "Simulation"
   }
 }

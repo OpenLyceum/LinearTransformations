@@ -45,34 +45,6 @@ const stringProperties = LocalizedString.getNestedStringProperties({
   es: stringsEs,
 });
 
-// seed:reference-string-types:start
-/**
- * Explicit `a11y` shape exposed by {@link StringManager.getA11yStrings}.
- * Keep this in sync with the `a11y` key in `strings_en.json` — a locale key
- * rename that is not mirrored here fails at the getter return (not silently).
- */
-export type SimA11yStrings = {
-  readonly screenSummary: {
-    readonly playAreaStringProperty: ReadOnlyProperty<string>;
-    readonly controlAreaStringProperty: ReadOnlyProperty<string>;
-    readonly interactionHintStringProperty: ReadOnlyProperty<string>;
-  };
-  readonly currentDetailsStringProperty: ReadOnlyProperty<string>;
-  readonly controls: {
-    readonly exampleControlStringProperty: ReadOnlyProperty<string>;
-  };
-};
-
-/**
- * Explicit Preferences → Simulation labels from {@link StringManager.getPreferences}.
- * Same sync rule as {@link SimA11yStrings}.
- */
-export type SimPreferenceStrings = {
-  readonly titleStringProperty: ReadOnlyProperty<string>;
-  readonly exampleToggleStringProperty: ReadOnlyProperty<string>;
-};
-// seed:reference-string-types:end
-
 /**
  * StringManager is a singleton that provides typed access to all localized
  * strings. Use `StringManager.getInstance()` everywhere — never construct it
@@ -105,34 +77,64 @@ export class StringManager {
    * Each property updates automatically when the locale changes.
    */
   public getScreenNames(): {
-    readonly simStringProperty: ReadOnlyProperty<string>;
+    readonly spanStringProperty: ReadOnlyProperty<string>;
+    readonly transformStringProperty: ReadOnlyProperty<string>;
+    readonly systemsStringProperty: ReadOnlyProperty<string>;
+    readonly eigenStringProperty: ReadOnlyProperty<string>;
+    readonly projectionStringProperty: ReadOnlyProperty<string>;
+    readonly basisStringProperty: ReadOnlyProperty<string>;
+    readonly svdStringProperty: ReadOnlyProperty<string>;
   } {
     return {
-      simStringProperty: stringProperties.screens.simStringProperty,
+      spanStringProperty: stringProperties.screens.spanStringProperty,
+      transformStringProperty: stringProperties.screens.transformStringProperty,
+      systemsStringProperty: stringProperties.screens.systemsStringProperty,
+      eigenStringProperty: stringProperties.screens.eigenStringProperty,
+      projectionStringProperty: stringProperties.screens.projectionStringProperty,
+      basisStringProperty: stringProperties.screens.basisStringProperty,
+      svdStringProperty: stringProperties.screens.svdStringProperty,
     };
   }
 
-  /**
-   * Accessibility (Interactive Description) StringProperties.
-   *
-   * Returns the reactive `a11y` string tree used by the parallel DOM:
-   *   - `screenSummary.*` — play-area / control-area overview and an interaction
-   *     hint, read by `SimScreenSummaryContent`.
-   *   - `currentDetails` — a paragraph describing the simulation's current state.
-   *     In a real sim, derive a live version from model Properties (see
-   *     LunarLander's ScreenSummaryContent for the canonical pattern).
-   *
-   * Add `accessibleName` / `accessibleHelpText` strings for individual controls
-   * to the `a11y` group too, then read them through this same nested tree.
-   */
-  public getA11yStrings(): SimA11yStrings {
-    return stringProperties.a11y;
+  /** Accessibility strings for the Span screen. */
+  public getSpanA11yStrings() {
+    return stringProperties.a11y.span;
+  }
+
+  /** Accessibility strings for the Transform screen. */
+  public getTransformA11yStrings() {
+    return stringProperties.a11y.transform;
+  }
+
+  /** Accessibility strings for the Systems screen. */
+  public getSystemsA11yStrings() {
+    return stringProperties.a11y.systems;
+  }
+
+  /** Accessibility strings for the Eigenvectors screen. */
+  public getEigenvectorsA11yStrings() {
+    return stringProperties.a11y.eigen;
+  }
+
+  /** Accessibility strings for the Projection screen. */
+  public getProjectionA11yStrings() {
+    return stringProperties.a11y.projection;
+  }
+
+  /** Accessibility strings for the Change of Basis screen. */
+  public getChangeOfBasisA11yStrings() {
+    return stringProperties.a11y.basis;
+  }
+
+  /** Accessibility strings for the SVD screen. */
+  public getSVDA11yStrings() {
+    return stringProperties.a11y.svd;
   }
 
   /**
    * Simulation-specific preference labels shown in Preferences → Simulation.
    */
-  public getPreferences(): SimPreferenceStrings {
+  public getPreferences() {
     return stringProperties.preferences;
   }
 }
