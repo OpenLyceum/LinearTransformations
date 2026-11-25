@@ -10,6 +10,29 @@ import { det } from "../model/LinearAlgebra.js";
 import type { MatrixModel } from "../model/MatrixModel.js";
 import { labeledMatrix } from "./MatrixReadout.js";
 
+export function matrixEntrySpinner(property: NumberProperty, accessibleName: TReadOnlyProperty<string>): NumberSpinner {
+  const delta = 0.1;
+  // NumberSpinner checks the next value against the range to disable its arrows.
+  // From a fractional entry near an endpoint, allow one final step to the endpoint.
+  const nextEntry = (value: number, step: number, limit: number) => {
+    const next = toFixedNumber(value + step, 2);
+    return value === limit ? next : property.range.constrainValue(next);
+  };
+  return new NumberSpinner(property, property.rangeProperty, {
+    accessibleName,
+    arrowsPosition: "bothBottom",
+    deltaValue: delta,
+    incrementFunction: (value) => nextEntry(value, delta, property.range.max),
+    decrementFunction: (value) => nextEntry(value, -delta, property.range.min),
+    numberDisplayOptions: {
+      decimalPlaces: 2,
+      textOptions: { font: "15px sans-serif", fill: Colors.controlSurfaceTextColorProperty },
+      backgroundFill: Colors.controlSurfaceColorProperty,
+      minBackgroundWidth: 52,
+    },
+  });
+}
+
 export class MatrixEditor extends Node {
   private readonly disposeEditor: () => void;
 
@@ -21,26 +44,7 @@ export class MatrixEditor extends Node {
         StringUtils.fillIn(strings.entryStringProperty, { label: label.value, row, column }),
       );
       ownedProperties.push(entryLabel);
-      const delta = 0.1;
-      // NumberSpinner checks the next value against the range to disable its arrows.
-      // From a fractional entry near an endpoint, allow one final step to the endpoint.
-      const nextEntry = (value: number, step: number, limit: number) => {
-        const next = toFixedNumber(value + step, 2);
-        return value === limit ? next : property.range.constrainValue(next);
-      };
-      const spinner = new NumberSpinner(property, property.rangeProperty, {
-        accessibleName: entryLabel,
-        arrowsPosition: "bothBottom",
-        deltaValue: delta,
-        incrementFunction: (value) => nextEntry(value, delta, property.range.max),
-        decrementFunction: (value) => nextEntry(value, -delta, property.range.min),
-        numberDisplayOptions: {
-          decimalPlaces: 2,
-          textOptions: { font: "15px sans-serif", fill: Colors.controlSurfaceTextColorProperty },
-          backgroundFill: Colors.controlSurfaceColorProperty,
-          minBackgroundWidth: 52,
-        },
-      });
+      const spinner = matrixEntrySpinner(property, entryLabel);
       const underline = new Rectangle(0, 0, spinner.width, 3, {
         fill: column === 1 ? Colors.column1ColorProperty : Colors.column2ColorProperty,
       });

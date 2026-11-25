@@ -4,7 +4,7 @@
   "entry": [],
   "ignoreFiles": [],
   "ignoreIssues": {
-    "src/common/model/{LeastSquares,RowReduction,Svd}.ts": ["files"]
+    "src/common/model/Svd.ts": ["files"]
   },
   "ignoreDependencies": ["@swc/core"],
   "ignoreUnresolved": [],

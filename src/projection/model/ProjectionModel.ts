@@ -1,53 +1,73 @@
-/**
- * ProjectionModel.ts
- *
- * The top-level model for the simulation screen.
- *
- * Add your simulation's state here using reactive Property objects from
- * scenerystack/axon. The view observes these properties and updates automatically.
- *
- * ── Example ──────────────────────────────────────────────────────────────────
- *   import { BooleanProperty, NumberProperty } from "scenerystack/axon";
- *
- *   public readonly isRunningProperty = new BooleanProperty(false);
- *   public readonly timeProperty = new NumberProperty(0);    // seconds
- *
- * ── Step cycle ────────────────────────────────────────────────────────────────
- * The Sim calls step(dt) on every animation frame. Advance your model state
- * in that method (e.g. integrate equations, update positions).
- *
- * ── Reset ─────────────────────────────────────────────────────────────────────
- * reset() is called when the user presses Reset All. Call .reset() on every
- * Property declared here.
- */
+import { BooleanProperty, DerivedProperty, NumberProperty, StringUnionProperty } from "scenerystack/axon";
+import { Range } from "scenerystack/dot";
 import type { TModel } from "scenerystack/joist";
+import { fitLine, projectionMatrix, projectOntoLine, sse } from "../../common/model/LeastSquares.js";
+import type { Vec } from "../../common/model/LinearAlgebra.js";
+import { HANDLE_X_RANGE, HANDLE_Y_RANGE } from "../../LinearTransformationsConstants.js";
+
+const INITIAL_POINTS: readonly Vec[] = [
+  [-3, -1.5],
+  [-1.5, -1],
+  [0, 0.5],
+  [1.5, 0.8],
+  [3, 2.5],
+];
+const LINE_PARAMETER_RANGE = new Range(-3, 3);
+
+function coordinateProperties([x, y]: Vec) {
+  return [new NumberProperty(x, { range: HANDLE_X_RANGE }), new NumberProperty(y, { range: HANDLE_Y_RANGE })] as const;
+}
 
 export class ProjectionModel implements TModel {
-  /**
-   * Resets all model state to initial values.
-   * Called when the user presses the Reset All button.
-   */
+  public readonly modeProperty = new StringUnionProperty<"project" | "leastSquares">("project", {
+    validValues: ["project", "leastSquares"],
+  });
+  public readonly aCoordinates = coordinateProperties([3, 1]);
+  public readonly bCoordinates = coordinateProperties([1, 2.5]);
+  public readonly pointsProperties = INITIAL_POINTS.map(coordinateProperties);
+  public readonly tryLineProperty = new BooleanProperty(false);
+  public readonly userSlopeProperty = new NumberProperty(0.5, { range: LINE_PARAMETER_RANGE });
+  public readonly userInterceptProperty = new NumberProperty(0, { range: LINE_PARAMETER_RANGE });
+
+  public readonly aProperty = new DerivedProperty(this.aCoordinates, (x, y): Vec => [x, y]);
+  public readonly bProperty = new DerivedProperty(this.bCoordinates, (x, y): Vec => [x, y]);
+  public readonly pointsProperty = DerivedProperty.deriveAny(this.pointsProperties.flat(), () =>
+    this.pointsProperties.map(([x, y]): Vec => [x.value, y.value]),
+  );
+  public readonly projectionProperty = new DerivedProperty([this.aProperty, this.bProperty], projectOntoLine);
+  public readonly projectionMatrixProperty = new DerivedProperty([this.aProperty], projectionMatrix);
+  public readonly fitProperty = new DerivedProperty([this.pointsProperty], fitLine);
+  public readonly userSSEProperty = new DerivedProperty(
+    [this.pointsProperty, this.userSlopeProperty, this.userInterceptProperty],
+    sse,
+  );
+
+  private readonly properties = [
+    this.modeProperty,
+    ...this.aCoordinates,
+    ...this.bCoordinates,
+    ...this.pointsProperties.flat(),
+    this.tryLineProperty,
+    this.userSlopeProperty,
+    this.userInterceptProperty,
+  ];
+
   public reset(): void {
-    // TODO: call .reset() on every Property declared in this model
+    for (const property of this.properties) {
+      property.reset();
+    }
   }
 
-  /**
-   * Steps the model forward by dt seconds.
-   * Called every animation frame by the Sim framework.
-   *
-   * @param _dt - elapsed time in seconds since the last frame
-   */
-  public step(_dt: number): void {
-    // For play/pause, speed, and elapsed time, compose TimeModel instead of hand-rolling
-    // a clock: copy src/common/TimeModel.ts (and tests/TimeModel.test.ts) from
-    // SceneryStackTemplate unchanged — Baton's drift check requires an exact match —
-    // then hold one in a readonly `timer` field, step/reset/dispose it, and list it
-    // in tests/memory-leak.test.ts.
-    // TODO: advance simulation state here
-  }
-
-  /** Release owned Properties / composed models. */
   public dispose(): void {
-    // No resources yet.
+    this.userSSEProperty.dispose();
+    this.fitProperty.dispose();
+    this.projectionMatrixProperty.dispose();
+    this.projectionProperty.dispose();
+    this.pointsProperty.dispose();
+    this.bProperty.dispose();
+    this.aProperty.dispose();
+    for (const property of this.properties) {
+      property.dispose();
+    }
   }
 }

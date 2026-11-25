@@ -83,9 +83,36 @@
     },
     "systems": {
       "screenSummary": {
-        "playArea": "A coordinate grid shows the x- and y-axes.",
-        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Use Reset All to restore the screen."
+        "playArea": "Ax = b shown as two lines, or as columns of A combining to make b.",
+        "controlArea": "Edit A and b, switch pictures, and step through row reduction.",
+        "interactionHint": "Why don't row operations move the solution?"
+      },
+      "controls": {
+        "picture": "System representation",
+        "row": "Row picture",
+        "column": "Column picture",
+        "back": "◀ Back",
+        "next": "Next step ▶",
+        "restart": "Restart",
+        "matrixA": "A",
+        "column1": "A₁",
+        "column2": "A₂",
+        "handle1": "First column of A",
+        "handle2": "Second column of A",
+        "vectorB": "b",
+        "handleB": "Vector b",
+        "bLabel": "b =",
+        "b1": "First component of b",
+        "b2": "Second component of b",
+        "augmented": "[A | b]",
+        "original": "Original system",
+        "reduced": "Reduced row echelon form",
+        "step": "Step {{index}} of {{count}}: {{operation}}",
+        "unique": "Unique solution x = ({{x}}, {{y}})",
+        "none": "No solution: the lines are parallel",
+        "contradiction": "No solution: a row gives a contradiction",
+        "infinite": "Infinitely many: x = ({{px}}, {{py}}) + t·({{nx}}, {{ny}})",
+        "all": "Every x is a solution"
       }
     },
     "eigen": {
@@ -118,9 +145,37 @@
     },
     "projection": {
       "screenSummary": {
-        "playArea": "A coordinate grid shows the x- and y-axes.",
-        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Use Reset All to restore the screen."
+        "playArea": "Vector b, its projection p onto the line through a, and the error e; or data with its least-squares line.",
+        "controlArea": "Drag a and b, or drag data points and compare your own line.",
+        "interactionHint": "Why is the error perpendicular to the line?"
+      },
+      "controls": {
+        "mode": "Projection mode",
+        "project": "Project b onto a",
+        "leastSquares": "Least squares",
+        "tryLine": "Try your own line",
+        "slope": "Slope m",
+        "intercept": "Intercept k",
+        "a": "a",
+        "b": "b",
+        "p": "p",
+        "e": "e",
+        "handleA": "Direction vector a",
+        "handleB": "Vector b",
+        "dataPoint": "Data point {{index}}",
+        "matrix": "P = aaᵀ/(aᵀa)",
+        "projected": "p = ({{x}}, {{y}})",
+        "error": "e = b − p = ({{x}}, {{y}})",
+        "dot": "a · e = {{value}}",
+        "distance": "‖e‖ = {{value}}: the shortest distance from b to the line",
+        "zero": "a = 0: choose a nonzero a",
+        "bestFit": "Best fit y = m x + k with m = {{slope}}, k = {{intercept}}",
+        "sse": "SSE = {{value}}",
+        "userSSE": "Your line SSE = {{value}}",
+        "matches": "(matches best)",
+        "above": "(≥ best)",
+        "projectionNote": "The fitted values ŷ are the projection of y onto Col(X)",
+        "allXEqual": "All x equal: no unique line"
       }
     },
     "basis": {
@@ -146,7 +201,8 @@
     "det": "det {{label}} = {{value}}",
     "preset": "Matrix preset",
     "label": "{{label}} =",
-    "readout": "{{label}} row 1: {{a}} and {{b}}. Row 2: {{c}} and {{d}}."
+    "readout": "{{label}} row 1: {{a}} and {{b}}. Row 2: {{c}} and {{d}}.",
+    "augmentedReadout": "Augmented matrix. First row: {{a}}, {{b}}, right-hand side {{c}}. Second row: {{d}}, {{e}}, right-hand side {{f}}."
   },
   "vector": {
     "coordinates": "({{x}}, {{y}})"

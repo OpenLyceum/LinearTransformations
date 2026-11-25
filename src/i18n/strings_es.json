@@ -3,9 +3,9 @@
   "screens": {
     "span": "Subespacio generado",
     "transform": "Transformación",
-    "systems": "Systems",
+    "systems": "Sistemas",
     "eigen": "Vectores propios",
-    "projection": "Projection",
+    "projection": "Proyección",
     "basis": "Change of Basis",
     "svd": "SVD"
   },
@@ -83,9 +83,36 @@
     },
     "systems": {
       "screenSummary": {
-        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
-        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+        "playArea": "Ax = b representado mediante dos rectas o como una combinación de las columnas de A que da b.",
+        "controlArea": "Edita A y b, cambia de representación y recorre los pasos de la reducción por filas.",
+        "interactionHint": "¿Por qué las operaciones por filas no desplazan la solución?"
+      },
+      "controls": {
+        "picture": "Representación del sistema",
+        "row": "Vista por filas",
+        "column": "Vista por columnas",
+        "back": "◀ Atrás",
+        "next": "Paso siguiente ▶",
+        "restart": "Reiniciar",
+        "matrixA": "A",
+        "column1": "A₁",
+        "column2": "A₂",
+        "handle1": "Primera columna de A",
+        "handle2": "Segunda columna de A",
+        "vectorB": "b",
+        "handleB": "Vector b",
+        "bLabel": "b =",
+        "b1": "Primera componente de b",
+        "b2": "Segunda componente de b",
+        "augmented": "[A | b]",
+        "original": "Sistema original",
+        "reduced": "Forma escalonada reducida por filas",
+        "step": "Paso {{index}} de {{count}}: {{operation}}",
+        "unique": "Solución única x = ({{x}}; {{y}})",
+        "none": "Sin solución: las rectas son paralelas",
+        "contradiction": "Sin solución: una fila da una contradicción",
+        "infinite": "Infinitas soluciones: x = ({{px}}; {{py}}) + t·({{nx}}; {{ny}})",
+        "all": "Todo x es solución"
       }
     },
     "eigen": {
@@ -118,9 +145,37 @@
     },
     "projection": {
       "screenSummary": {
-        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
-        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+        "playArea": "El vector b, su proyección p sobre la recta que pasa por a y el error e, o datos con su recta de mínimos cuadrados.",
+        "controlArea": "Arrastra a y b, o arrastra los puntos de datos y compara tu propia recta.",
+        "interactionHint": "¿Por qué el error es perpendicular a la recta?"
+      },
+      "controls": {
+        "mode": "Modo de proyección",
+        "project": "Proyectar b sobre a",
+        "leastSquares": "Mínimos cuadrados",
+        "tryLine": "Prueba tu propia recta",
+        "slope": "Pendiente m",
+        "intercept": "Ordenada en el origen k",
+        "a": "a",
+        "b": "b",
+        "p": "p",
+        "e": "e",
+        "handleA": "Vector director a",
+        "handleB": "Vector b",
+        "dataPoint": "Punto de datos {{index}}",
+        "matrix": "P = aaᵀ/(aᵀa)",
+        "projected": "p = ({{x}}; {{y}})",
+        "error": "e = b − p = ({{x}}; {{y}})",
+        "dot": "a · e = {{value}}",
+        "distance": "‖e‖ = {{value}}: la distancia mínima de b a la recta",
+        "zero": "a = 0: elige un vector a no nulo",
+        "bestFit": "Mejor ajuste y = m x + k con m = {{slope}} y k = {{intercept}}",
+        "sse": "Suma de cuadrados de los residuos = {{value}}",
+        "userSSE": "Suma de cuadrados para tu recta = {{value}}",
+        "matches": "(iguala el mínimo)",
+        "above": "(≥ mínimo)",
+        "projectionNote": "Los valores ajustados ŷ son la proyección de y sobre el espacio columna de X",
+        "allXEqual": "Todos los valores de x son iguales: no hay una recta única"
       }
     },
     "basis": {
@@ -146,7 +201,8 @@
     "det": "det {{label}} = {{value}}",
     "preset": "Matriz predefinida",
     "label": "{{label}} =",
-    "readout": "{{label}}, fila 1: {{a}} y {{b}}. Fila 2: {{c}} y {{d}}."
+    "readout": "{{label}}, fila 1: {{a}} y {{b}}. Fila 2: {{c}} y {{d}}.",
+    "augmentedReadout": "Matriz aumentada. Primera fila: {{a}}, {{b}}, término independiente {{c}}. Segunda fila: {{d}}, {{e}}, término independiente {{f}}."
   },
   "vector": {
     "coordinates": "({{x}}; {{y}})"

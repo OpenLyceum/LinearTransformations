@@ -31,8 +31,9 @@ export function labeledMatrix(grid: Node, label: TReadOnlyProperty<string>, name
 export class MatrixReadout extends Node {
   private readonly disposeReadout: () => void;
 
-  public constructor(matrix: TReadOnlyProperty<Mat2>, label: TReadOnlyProperty<string>) {
-    const entryValue = (index: 0 | 1 | 2 | 3) => computed([matrix], () => format(matrix.value[index], 2));
+  public constructor(matrix: TReadOnlyProperty<Mat2 | null>, label: TReadOnlyProperty<string>) {
+    const entryValue = (index: 0 | 1 | 2 | 3) =>
+      computed([matrix], () => (matrix.value ? format(matrix.value[index], 2) : "—"));
     const values = [entryValue(0), entryValue(1), entryValue(2), entryValue(3)] as const;
     const cell = (index: 0 | 1 | 2 | 3) =>
       new Text(values[index], { font: "15px sans-serif", fill: Colors.textColorProperty, maxWidth: 45 });

@@ -29,6 +29,8 @@ type StringSource = string | TReadOnlyProperty<string>;
 type Dependencies = readonly TReadOnlyProperty<unknown>[];
 type Point = readonly [number, number];
 
+const READOUT_WIDTH = 300;
+
 export function computed(dependencies: Dependencies, calculate: () => string) {
   return DerivedProperty.deriveAny([localeProperty, ...dependencies], calculate);
 }
@@ -162,6 +164,7 @@ type LabViewConfig = {
   plot: PlotCanvas;
   controls: Node[];
   readouts: StringSource[];
+  wrapReadouts?: boolean;
   reset: () => void;
   /** Parent for open combo-box lists, created by the view and added here on top of everything. */
   listParent?: Node;
@@ -203,7 +206,8 @@ export class LabView extends ScreenView {
           (value, index) =>
             new RichText(value, {
               font: `${index === 0 ? "bold " : ""}15px sans-serif`,
-              maxWidth: 300,
+              maxWidth: READOUT_WIDTH,
+              lineWrap: config.wrapReadouts ? READOUT_WIDTH : null,
               fill: Colors.textColorProperty,
             }),
         ),

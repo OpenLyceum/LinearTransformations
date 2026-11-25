@@ -14,10 +14,12 @@ import { MatrixModel } from "../src/common/model/MatrixModel.js";
 import { EigenvectorsModel } from "../src/eigen/model/EigenvectorsModel.js";
 import { EigenvectorsScreenView } from "../src/eigen/view/EigenvectorsScreenView.js";
 import { ProjectionModel } from "../src/projection/model/ProjectionModel.js";
+import { ProjectionScreenView } from "../src/projection/view/ProjectionScreenView.js";
 import { SpanModel } from "../src/span/model/SpanModel.js";
 import { SpanScreenView } from "../src/span/view/SpanScreenView.js";
 import { SVDModel } from "../src/svd/model/SVDModel.js";
 import { SystemsModel } from "../src/systems/model/SystemsModel.js";
+import { SystemsScreenView } from "../src/systems/view/SystemsScreenView.js";
 import { TransformModel } from "../src/transform/model/TransformModel.js";
 import { TransformScreenView } from "../src/transform/view/TransformScreenView.js";
 import { describeDisposalLeaks } from "./helpers/memoryLeak.js";
@@ -47,6 +49,16 @@ describeDisposalLeaks([
     },
   },
   { name: "SystemsModel", create: () => new SystemsModel() },
+  {
+    name: "SystemsScreenView",
+    create: () => {
+      const model = new SystemsModel();
+      const view = new SystemsScreenView(model);
+      model.pictureProperty.value = "column";
+      view.addDisposable(model);
+      return view;
+    },
+  },
   { name: "EigenvectorsModel", create: () => new EigenvectorsModel() },
   {
     name: "EigenvectorsScreenView",
@@ -59,6 +71,16 @@ describeDisposalLeaks([
     },
   },
   { name: "ProjectionModel", create: () => new ProjectionModel() },
+  {
+    name: "ProjectionScreenView",
+    create: () => {
+      const model = new ProjectionModel();
+      const view = new ProjectionScreenView(model);
+      model.modeProperty.value = "leastSquares";
+      view.addDisposable(model);
+      return view;
+    },
+  },
   { name: "ChangeOfBasisModel", create: () => new ChangeOfBasisModel() },
   { name: "SVDModel", create: () => new SVDModel() },
 ]);

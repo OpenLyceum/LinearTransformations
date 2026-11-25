@@ -3,7 +3,7 @@
   "screens": {
     "span": "Sous-espace engendré",
     "transform": "Transformation",
-    "systems": "Systems",
+    "systems": "Systèmes",
     "eigen": "Vecteurs propres",
     "projection": "Projection",
     "basis": "Change of Basis",
@@ -83,9 +83,36 @@
     },
     "systems": {
       "screenSummary": {
-        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
-        "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+        "playArea": "Ax = b représenté par deux droites ou par une combinaison des colonnes de A qui donne b.",
+        "controlArea": "Modifiez A et b, changez de représentation et suivez la réduction par lignes étape par étape.",
+        "interactionHint": "Pourquoi les opérations sur les lignes ne déplacent-elles pas la solution ?"
+      },
+      "controls": {
+        "picture": "Représentation du système",
+        "row": "Vue par lignes",
+        "column": "Vue par colonnes",
+        "back": "◀ Retour",
+        "next": "Étape suivante ▶",
+        "restart": "Recommencer",
+        "matrixA": "A",
+        "column1": "A₁",
+        "column2": "A₂",
+        "handle1": "Première colonne de A",
+        "handle2": "Deuxième colonne de A",
+        "vectorB": "b",
+        "handleB": "Vecteur b",
+        "bLabel": "b =",
+        "b1": "Première composante de b",
+        "b2": "Deuxième composante de b",
+        "augmented": "[A | b]",
+        "original": "Système initial",
+        "reduced": "Forme échelonnée réduite",
+        "step": "Étape {{index}} sur {{count}} : {{operation}}",
+        "unique": "Solution unique x = ({{x}} ; {{y}})",
+        "none": "Aucune solution : les droites sont parallèles",
+        "contradiction": "Aucune solution : une ligne donne une contradiction",
+        "infinite": "Une infinité de solutions : x = ({{px}} ; {{py}}) + t·({{nx}} ; {{ny}})",
+        "all": "Tout x est solution"
       }
     },
     "eigen": {
@@ -118,9 +145,37 @@
     },
     "projection": {
       "screenSummary": {
-        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
-        "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+        "playArea": "Le vecteur b, sa projection p sur la droite dirigée par a et l’erreur e, ou des données avec leur droite des moindres carrés.",
+        "controlArea": "Déplacez a et b, ou déplacez les points de données et comparez votre propre droite.",
+        "interactionHint": "Pourquoi l’erreur est-elle perpendiculaire à la droite ?"
+      },
+      "controls": {
+        "mode": "Mode de projection",
+        "project": "Projeter b sur a",
+        "leastSquares": "Moindres carrés",
+        "tryLine": "Essayez votre propre droite",
+        "slope": "Pente m",
+        "intercept": "Ordonnée à l’origine k",
+        "a": "a",
+        "b": "b",
+        "p": "p",
+        "e": "e",
+        "handleA": "Vecteur directeur a",
+        "handleB": "Vecteur b",
+        "dataPoint": "Point de données {{index}}",
+        "matrix": "P = aaᵀ/(aᵀa)",
+        "projected": "p = ({{x}} ; {{y}})",
+        "error": "e = b − p = ({{x}} ; {{y}})",
+        "dot": "a · e = {{value}}",
+        "distance": "‖e‖ = {{value}} : la distance minimale de b à la droite",
+        "zero": "a = 0 : choisissez un vecteur a non nul",
+        "bestFit": "Meilleur ajustement y = m x + k avec m = {{slope}} et k = {{intercept}}",
+        "sse": "Somme des carrés des résidus = {{value}}",
+        "userSSE": "Somme des carrés pour votre droite = {{value}}",
+        "matches": "(égale le minimum)",
+        "above": "(≥ minimum)",
+        "projectionNote": "Les valeurs ajustées ŷ sont la projection de y sur l’espace colonne de X",
+        "allXEqual": "Toutes les abscisses sont égales : la droite n’est pas unique"
       }
     },
     "basis": {
@@ -146,7 +201,8 @@
     "det": "dét {{label}} = {{value}}",
     "preset": "Matrice prédéfinie",
     "label": "{{label}} =",
-    "readout": "{{label}}, ligne 1 : {{a}} et {{b}}. Ligne 2 : {{c}} et {{d}}."
+    "readout": "{{label}}, ligne 1 : {{a}} et {{b}}. Ligne 2 : {{c}} et {{d}}.",
+    "augmentedReadout": "Matrice augmentée. Première ligne : {{a}}, {{b}}, second membre {{c}}. Deuxième ligne : {{d}}, {{e}}, second membre {{f}}."
   },
   "vector": {
     "coordinates": "({{x}} ; {{y}})"

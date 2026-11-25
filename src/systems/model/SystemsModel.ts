@@ -1,53 +1,70 @@
-/**
- * SystemsModel.ts
- *
- * The top-level model for the simulation screen.
- *
- * Add your simulation's state here using reactive Property objects from
- * scenerystack/axon. The view observes these properties and updates automatically.
- *
- * ── Example ──────────────────────────────────────────────────────────────────
- *   import { BooleanProperty, NumberProperty } from "scenerystack/axon";
- *
- *   public readonly isRunningProperty = new BooleanProperty(false);
- *   public readonly timeProperty = new NumberProperty(0);    // seconds
- *
- * ── Step cycle ────────────────────────────────────────────────────────────────
- * The Sim calls step(dt) on every animation frame. Advance your model state
- * in that method (e.g. integrate equations, update positions).
- *
- * ── Reset ─────────────────────────────────────────────────────────────────────
- * reset() is called when the user presses Reset All. Call .reset() on every
- * Property declared here.
- */
+import { DerivedProperty, Multilink, NumberProperty, StringUnionProperty } from "scenerystack/axon";
+import { Range } from "scenerystack/dot";
 import type { TModel } from "scenerystack/joist";
+import type { Vec } from "../../common/model/LinearAlgebra.js";
+import { MatrixModel } from "../../common/model/MatrixModel.js";
+import { type Augmented, classify, rref } from "../../common/model/RowReduction.js";
+import { HANDLE_X_RANGE, HANDLE_Y_RANGE } from "../../LinearTransformationsConstants.js";
 
 export class SystemsModel implements TModel {
-  /**
-   * Resets all model state to initial values.
-   * Called when the user presses the Reset All button.
-   */
+  public readonly matrix = new MatrixModel([1, 1, 1, -1]);
+  public readonly bxProperty = new NumberProperty(3, { range: HANDLE_X_RANGE });
+  public readonly byProperty = new NumberProperty(1, { range: HANDLE_Y_RANGE });
+  public readonly pictureProperty = new StringUnionProperty<"row" | "column">("row", {
+    validValues: ["row", "column"],
+  });
+
+  public readonly bProperty = new DerivedProperty([this.bxProperty, this.byProperty], (x, y): Vec => [x, y]);
+  public readonly rrefProperty = new DerivedProperty(
+    [this.matrix.matrixProperty, this.bProperty],
+    ([a, b, c, d], [x, y]) => {
+      const original: Augmented = [
+        [a, b, x],
+        [c, d, y],
+      ];
+      return { original, ...rref(original) };
+    },
+  );
+  public readonly stepProperty = new NumberProperty(0, {
+    numberType: "Integer",
+    range: new Range(0, this.rrefProperty.value.steps.length),
+  });
+
+  private readonly restartOnEdit = Multilink.lazyMultilink([this.rrefProperty], ({ steps }) => {
+    this.stepProperty.setValueAndRange(0, new Range(0, steps.length));
+  });
+
+  public readonly currentStepProperty = new DerivedProperty(
+    [this.rrefProperty, this.stepProperty],
+    ({ steps }, index) => steps[index - 1],
+  );
+  public readonly currentProperty = new DerivedProperty(
+    [this.rrefProperty, this.currentStepProperty],
+    ({ original }, step) => step?.after ?? original,
+  );
+  public readonly solutionProperty = new DerivedProperty([this.rrefProperty], ({ result }) => classify(result));
+
+  private readonly properties = [this.bxProperty, this.byProperty, this.pictureProperty];
+
   public reset(): void {
-    // TODO: call .reset() on every Property declared in this model
+    this.matrix.reset();
+    for (const property of this.properties) {
+      property.reset();
+    }
+    this.stepProperty.reset();
   }
 
-  /**
-   * Steps the model forward by dt seconds.
-   * Called every animation frame by the Sim framework.
-   *
-   * @param _dt - elapsed time in seconds since the last frame
-   */
-  public step(_dt: number): void {
-    // For play/pause, speed, and elapsed time, compose TimeModel instead of hand-rolling
-    // a clock: copy src/common/TimeModel.ts (and tests/TimeModel.test.ts) from
-    // SceneryStackTemplate unchanged — Baton's drift check requires an exact match —
-    // then hold one in a readonly `timer` field, step/reset/dispose it, and list it
-    // in tests/memory-leak.test.ts.
-    // TODO: advance simulation state here
-  }
-
-  /** Release owned Properties / composed models. */
   public dispose(): void {
-    // No resources yet.
+    this.solutionProperty.dispose();
+    this.currentProperty.dispose();
+    this.currentStepProperty.dispose();
+    this.restartOnEdit.dispose();
+    this.stepProperty.dispose();
+    this.rrefProperty.dispose();
+    this.bProperty.dispose();
+    for (const property of this.properties) {
+      property.dispose();
+    }
+    this.matrix.dispose();
   }
 }
