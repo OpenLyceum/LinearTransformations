@@ -6,11 +6,13 @@ See vectors, matrices, eigenvectors, projections and the SVD act on the plane.
 
 ## Features
 
-- English, Spanish, and French localization via `StringManager`
-- Default and projector color profiles
-- Progressive Web App (installable, offline-capable)
-- Git hooks for Biome pre-commit checks
-- Shared GitHub Actions CI via `OpenLyceum/Baton`
+- **Span** — Drag two vectors and adjust their coefficients to explore their span and reach a target.
+- **Transform** — Edit a matrix to reshape a grid and the letter F, then compare the two orders of composition.
+- **Systems** — Solve a two-variable system by stepping through row operations and switching between row and column pictures.
+- **Eigenvectors** — Turn a vector to find directions preserved by a matrix and see what happens when you apply the matrix repeatedly.
+- **Projection** — Project one vector onto the line spanned by another, or move data points and compare your line with the least-squares fit.
+- **Change of Basis** — Move basis vectors to see how coordinates change and use an eigenbasis to diagonalize a matrix.
+- **SVD** — Play or scrub the rotation, stretch, and rotation that map the unit circle to its image under a matrix.
 
 ## Quick Start
 

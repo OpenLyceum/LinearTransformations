@@ -1,15 +1,5 @@
 # Implementation notes — Linear Transformations
 
-Developer-facing architecture notes for `linear-transformations`.
-
-## Architecture
-
-Screens: src/span/, src/transform/, src/systems/, src/eigen/, src/projection/, src/basis/, src/svd/
-
-- Models own state and `step` / `reset`; views observe Properties and never integrate physics.
-- Colors live in `src/LinearTransformationsColors.ts`; strings in `src/i18n/` via `StringManager`.
-- Preferences shell: `src/preferences/` (empty until sim-specific prefs are added).
-
-## Notes
-
-*Record design decisions, performance constraints, and known limitations here.*
+- `src/common/LabView.ts` is a local fork of ContourExplorer's shared view. Changes stay in this repository. It builds screen summaries, lays out the plot and controls, and forwards frame callbacks for the Eigenvectors sweep and SVD playback. The design bounds are 1024 × 655, using SceneryStack's default width and extra height for matrix controls.
+- `VectorHandle` overlays a focusable node on the canvas and updates the same pair of coordinate Properties from pointer and keyboard input. Pointer drags snap to 0.1 units by default. Arrow keys move by 0.1 units, and Shift reduces the step to 0.01. Coordinates are clamped to the handle and Property ranges. The Eigenvectors direction grip uses its own pointer listener and shares the angle Property with the Direction slider.
+- `MatrixModel` derives a row-major matrix from four bounded entry Properties. Choosing a named preset writes its entries. An edit that moves the entries away from the selected preset switches the selector to Custom. Selecting Custom preserves the entries. A guard prevents feedback during preset updates and reset restores the initial entries and preset together.
