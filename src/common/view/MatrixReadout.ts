@@ -7,8 +7,13 @@ import Colors from "../../LinearTransformationsColors.js";
 import { computed, format } from "../LabView.js";
 import type { Mat2 } from "../model/LinearAlgebra.js";
 
-/** Give the editor and readout the same bracket and label treatment. */
-export function labeledMatrix(grid: Node, label: TReadOnlyProperty<string>, name: TReadOnlyProperty<string>): HBox {
+/**
+ * Give the editor and readout the same bracket and label treatment. The live description is the
+ * innerContent of a separate leaf paragraph: changing innerContent updates the PDOM in place, whereas
+ * changing accessibleParagraph on the HBox rebuilds its PDOM subtree and trips Scenery's focus-order
+ * assertion when a spinner inside (or beside) it has keyboard focus.
+ */
+export function labeledMatrix(grid: Node, label: TReadOnlyProperty<string>, name: TReadOnlyProperty<string>): Node {
   const height = grid.height + 6;
   const bracket = (inside: number, outside: number) =>
     new Path(new Shape().moveTo(inside, 0).lineTo(outside, 0).lineTo(outside, height).lineTo(inside, height), {
@@ -16,7 +21,8 @@ export function labeledMatrix(grid: Node, label: TReadOnlyProperty<string>, name
       lineWidth: 2,
     });
 
-  return new HBox({
+  const description = new Node({ tagName: "p", innerContent: name });
+  const layout = new HBox({
     spacing: 5,
     children: [
       new RichText(label, { font: "15px sans-serif", fill: Colors.textColorProperty, maxWidth: 80 }),
@@ -24,8 +30,8 @@ export function labeledMatrix(grid: Node, label: TReadOnlyProperty<string>, name
       grid,
       bracket(0, 6),
     ],
-    accessibleParagraph: name,
   });
+  return new Node({ children: [description, layout] });
 }
 
 export class MatrixReadout extends Node {

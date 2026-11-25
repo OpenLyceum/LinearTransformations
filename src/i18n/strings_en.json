@@ -180,21 +180,60 @@
     },
     "basis": {
       "screenSummary": {
-        "playArea": "A coordinate grid shows the x- and y-axes.",
-        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Use Reset All to restore the screen."
+        "playArea": "A vector x in the standard grid and in the grid of basis b₁, b₂.",
+        "controlArea": "Drag b₁, b₂ and x, or use A's eigenvectors as the basis.",
+        "interactionHint": "What do x's coordinates look like in the new basis?"
+      },
+      "controls": {
+        "showDecomposition": "Show x = c₁b₁ + c₂b₂",
+        "useEigenvectors": "Use eigenvectors of A as the basis",
+        "matrixA": "A",
+        "basisMatrix": "P<sub>B</sub>",
+        "inverseMatrix": "P<sub>B</sub>⁻¹",
+        "similarityMatrix": "[A]<sub>B</sub> = P⁻¹AP",
+        "b1": "b₁",
+        "b2": "b₂",
+        "x": "x",
+        "b1Handle": "First basis vector b₁",
+        "b2Handle": "Second basis vector b₂",
+        "xHandle": "Vector x",
+        "standardCoordinates": "[x]<sub>std</sub> = ({{x}}, {{y}})",
+        "basisCoordinates": "[x]<sub>B</sub> = ({{c1}}, {{c2}})",
+        "coordinateRule": "x = P<sub>B</sub> [x]<sub>B</sub>, and [x]<sub>B</sub> = P<sub>B</sub>⁻¹ x",
+        "diagonal": "[A]<sub>B</sub> is diagonal: b₁, b₂ are eigenvectors of A",
+        "parallel": "b₁ and b₂ are parallel: not a basis"
       }
     },
     "svd": {
       "screenSummary": {
-        "playArea": "A coordinate grid shows the x- and y-axes.",
-        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Use Reset All to restore the screen."
+        "playArea": "The unit circle carried by Vᵀ, Σ and U onto the ellipse A makes.",
+        "controlArea": "Edit A, scrub or play the three stages, or show the grid.",
+        "interactionHint": "Which directions become the axes of the ellipse?"
+      },
+      "controls": {
+        "matrixA": "A",
+        "stage": "Stage",
+        "start": "start",
+        "vTranspose": "Vᵀ",
+        "sigma": "Σ",
+        "u": "U",
+        "play": "Play",
+        "pause": "Pause",
+        "grid": "Grid",
+        "image1": "σ₁u₁",
+        "image2": "σ₂u₂",
+        "unitCircle": "Unit circle",
+        "rotateV": "Rotate by Vᵀ",
+        "stretch": "Stretch by Σ",
+        "rotateU": "Rotate by U",
+        "flip": "(one axis flips: det A < 0)",
+        "singularValues": "σ₁ = {{first}}, σ₂ = {{second}}",
+        "rank": "rank = {{value}}",
+        "condition": "condition number σ₁/σ₂ = {{value}}",
+        "singular": "∞ (singular)",
+        "norm": "‖A‖₂ = σ₁ = {{value}}"
       }
     }
-  },
-  "preferences": {
-    "title": "Simulation"
   },
   "matrix": {
     "entry": "{{label}} row {{row}} column {{column}}",

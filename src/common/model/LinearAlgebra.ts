@@ -20,7 +20,6 @@ export function column2([, b, , d]: Mat2): Vec {
   return [b, d];
 }
 
-/** @public */
 export function fromColumns(u: Vec, w: Vec): Mat2 {
   return mat(u[0], w[0], u[1], w[1]);
 }
@@ -38,17 +37,14 @@ export function det([a, b, c, d]: Mat2): number {
   return a * d - b * c;
 }
 
-/** @public */
 export function trace([a, , , d]: Mat2): number {
   return a + d;
 }
 
-/** @public */
 export function transpose([a, b, c, d]: Mat2): Mat2 {
   return mat(a, c, b, d);
 }
 
-/** @public */
 export function inverse(m: Mat2): Mat2 | null {
   const determinant = det(m);
   if (Math.abs(determinant) <= EPS) {
@@ -63,14 +59,12 @@ export function lerp(m: Mat2, n: Mat2, t: number): Mat2 {
   return mat(interpolate(m[0], n[0]), interpolate(m[1], n[1]), interpolate(m[2], n[2]), interpolate(m[3], n[3]));
 }
 
-/** @public */
 export function rotation(radians: number): Mat2 {
   const cosine = Math.cos(radians);
   const sine = Math.sin(radians);
   return mat(cosine, -sine, sine, cosine);
 }
 
-/** @public */
 export function diag(p: number, q: number): Mat2 {
   return mat(p, 0, 0, q);
 }
@@ -87,7 +81,6 @@ export function scale(k: number, [x, y]: Vec): Vec {
   return [k * x, k * y];
 }
 
-/** @public */
 export function dotProduct([x, y]: Vec, [u, v]: Vec): number {
   return x * u + y * v;
 }

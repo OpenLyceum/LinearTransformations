@@ -6,14 +6,14 @@
  * to the parent Screen class.
  *
  * Registered in the screens array in src/main.ts. Its home-screen and navigation-bar
- * icons come from createEigenvectorsIcon() in src/common/LinearTransformationsScreenIcons.ts
+ * icons come from createEigenIcon() in src/common/LinearTransformationsScreenIcons.ts
  * (see doc/multi-screen.md).
  */
 import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import type { ScreenOptions } from "scenerystack/sim";
 import { Screen } from "scenerystack/sim";
 import type { Tandem } from "scenerystack/tandem";
-import { createEigenvectorsIcon } from "../common/LinearTransformationsScreenIcons.js";
+import { createEigenIcon } from "../common/LinearTransformationsScreenIcons.js";
 import LinearTransformationsColors from "../LinearTransformationsColors.js";
 import { EigenvectorsModel } from "./model/EigenvectorsModel.js";
 import { EigenvectorsKeyboardHelpContent } from "./view/EigenvectorsKeyboardHelpContent.js";
@@ -36,8 +36,8 @@ export class EigenvectorsScreen extends Screen<EigenvectorsModel, EigenvectorsSc
         {
           backgroundColorProperty: LinearTransformationsColors.backgroundColorProperty,
           createKeyboardHelpNode: () => new EigenvectorsKeyboardHelpContent(),
-          homeScreenIcon: createEigenvectorsIcon(),
-          navigationBarIcon: createEigenvectorsIcon(),
+          homeScreenIcon: createEigenIcon(),
+          navigationBarIcon: createEigenIcon(),
         },
         options,
       ),

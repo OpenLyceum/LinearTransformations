@@ -25,6 +25,7 @@ import { ChangeOfBasisScreen } from "./basis/ChangeOfBasisScreen.js";
 import { EigenvectorsScreen } from "./eigen/EigenvectorsScreen.js";
 import { StringManager } from "./i18n/StringManager.js";
 import LinearTransformationsColors from "./LinearTransformationsColors.js";
+import { NAVIGATION_ICON_WIDTH } from "./LinearTransformationsConstants.js";
 import { LinearTransformationsPreferencesModel } from "./preferences/LinearTransformationsPreferencesModel.js";
 import { LinearTransformationsPreferencesNode } from "./preferences/LinearTransformationsPreferencesNode.js";
 import { ProjectionScreen } from "./projection/ProjectionScreen.js";
@@ -76,6 +77,14 @@ onReadyToLaunch(() => {
       backgroundColorProperty: LinearTransformationsColors.backgroundColorProperty,
     }),
   ];
+
+  // Joist sizes each icon frame when it constructs the bar. Fit the seven-screen
+  // budget before that happens, after Screen has validated the full-size artwork.
+  for (const screen of screens) {
+    if (screen.navigationBarIcon) {
+      screen.navigationBarIcon.maxWidth = NAVIGATION_ICON_WIDTH;
+    }
+  }
 
   const sim = new Sim(stringManager.getTitleStringProperty(), screens, {
     preferencesModel: new PreferencesModel({

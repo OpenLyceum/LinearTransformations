@@ -6,8 +6,8 @@
     "systems": "Sistemas",
     "eigen": "Vectores propios",
     "projection": "Proyección",
-    "basis": "Change of Basis",
-    "svd": "SVD"
+    "basis": "Cambio de base",
+    "svd": "DVS"
   },
   "presets": {
     "custom": "Personalizada",
@@ -180,21 +180,60 @@
     },
     "basis": {
       "screenSummary": {
-        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
-        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+        "playArea": "Un vector x en la cuadrícula estándar y en la cuadrícula de la base b₁, b₂.",
+        "controlArea": "Arrastra b₁, b₂ y x, o usa los vectores propios de A como base.",
+        "interactionHint": "¿Cuáles son las coordenadas de x en la nueva base?"
+      },
+      "controls": {
+        "showDecomposition": "Mostrar x = c₁b₁ + c₂b₂",
+        "useEigenvectors": "Usar los vectores propios de A como base",
+        "matrixA": "A",
+        "basisMatrix": "P<sub>B</sub>",
+        "inverseMatrix": "P<sub>B</sub>⁻¹",
+        "similarityMatrix": "[A]<sub>B</sub> = P⁻¹AP",
+        "b1": "b₁",
+        "b2": "b₂",
+        "x": "x",
+        "b1Handle": "Primer vector de la base b₁",
+        "b2Handle": "Segundo vector de la base b₂",
+        "xHandle": "Vector x",
+        "standardCoordinates": "[x]<sub>std</sub> = ({{x}}; {{y}})",
+        "basisCoordinates": "[x]<sub>B</sub> = ({{c1}}; {{c2}})",
+        "coordinateRule": "x = P<sub>B</sub> [x]<sub>B</sub> y [x]<sub>B</sub> = P<sub>B</sub>⁻¹ x",
+        "diagonal": "[A]<sub>B</sub> es diagonal: b₁ y b₂ son vectores propios de A",
+        "parallel": "b₁ y b₂ son paralelos: no forman una base"
       }
     },
     "svd": {
       "screenSummary": {
-        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
-        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+        "playArea": "La transformación sucesiva por Vᵀ, Σ y U lleva el círculo unitario a la elipse que genera A.",
+        "controlArea": "Edita A, recorre las tres etapas con el deslizador, reproduce la animación o muestra la cuadrícula.",
+        "interactionHint": "¿Qué direcciones se convierten en los ejes de la elipse?"
+      },
+      "controls": {
+        "matrixA": "A",
+        "stage": "Etapa",
+        "start": "inicio",
+        "vTranspose": "Vᵀ",
+        "sigma": "Σ",
+        "u": "U",
+        "play": "Reproducir",
+        "pause": "Pausa",
+        "grid": "Cuadrícula",
+        "image1": "σ₁u₁",
+        "image2": "σ₂u₂",
+        "unitCircle": "Círculo unitario",
+        "rotateV": "Rotación por Vᵀ",
+        "stretch": "Estiramiento por Σ",
+        "rotateU": "Rotación por U",
+        "flip": "(un eje se invierte: det A < 0)",
+        "singularValues": "σ₁ = {{first}}, σ₂ = {{second}}",
+        "rank": "rango = {{value}}",
+        "condition": "número de condición σ₁/σ₂ = {{value}}",
+        "singular": "∞ (matriz singular)",
+        "norm": "‖A‖₂ = σ₁ = {{value}}"
       }
     }
-  },
-  "preferences": {
-    "title": "Simulación"
   },
   "matrix": {
     "entry": "{{label}}, fila {{row}}, columna {{column}}",

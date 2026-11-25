@@ -6,14 +6,14 @@
  * to the parent Screen class.
  *
  * Registered in the screens array in src/main.ts. Its home-screen and navigation-bar
- * icons come from createChangeOfBasisIcon() in src/common/LinearTransformationsScreenIcons.ts
+ * icons come from createBasisIcon() in src/common/LinearTransformationsScreenIcons.ts
  * (see doc/multi-screen.md).
  */
 import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import type { ScreenOptions } from "scenerystack/sim";
 import { Screen } from "scenerystack/sim";
 import type { Tandem } from "scenerystack/tandem";
-import { createChangeOfBasisIcon } from "../common/LinearTransformationsScreenIcons.js";
+import { createBasisIcon } from "../common/LinearTransformationsScreenIcons.js";
 import LinearTransformationsColors from "../LinearTransformationsColors.js";
 import { ChangeOfBasisModel } from "./model/ChangeOfBasisModel.js";
 import { ChangeOfBasisKeyboardHelpContent } from "./view/ChangeOfBasisKeyboardHelpContent.js";
@@ -36,8 +36,8 @@ export class ChangeOfBasisScreen extends Screen<ChangeOfBasisModel, ChangeOfBasi
         {
           backgroundColorProperty: LinearTransformationsColors.backgroundColorProperty,
           createKeyboardHelpNode: () => new ChangeOfBasisKeyboardHelpContent(),
-          homeScreenIcon: createChangeOfBasisIcon(),
-          navigationBarIcon: createChangeOfBasisIcon(),
+          homeScreenIcon: createBasisIcon(),
+          navigationBarIcon: createBasisIcon(),
         },
         options,
       ),

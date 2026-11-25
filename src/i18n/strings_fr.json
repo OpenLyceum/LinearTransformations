@@ -6,8 +6,8 @@
     "systems": "Systèmes",
     "eigen": "Vecteurs propres",
     "projection": "Projection",
-    "basis": "Change of Basis",
-    "svd": "SVD"
+    "basis": "Changement de base",
+    "svd": "DVS"
   },
   "presets": {
     "custom": "Personnalisée",
@@ -180,21 +180,60 @@
     },
     "basis": {
       "screenSummary": {
-        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
-        "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+        "playArea": "Un vecteur x dans le repère usuel et dans le repère associé à la base b₁, b₂.",
+        "controlArea": "Déplacez b₁, b₂ et x, ou utilisez les vecteurs propres de A comme base.",
+        "interactionHint": "Quelles sont les coordonnées de x dans la nouvelle base ?"
+      },
+      "controls": {
+        "showDecomposition": "Afficher x = c₁b₁ + c₂b₂",
+        "useEigenvectors": "Prendre les vecteurs propres de A comme base",
+        "matrixA": "A",
+        "basisMatrix": "P<sub>B</sub>",
+        "inverseMatrix": "P<sub>B</sub>⁻¹",
+        "similarityMatrix": "[A]<sub>B</sub> = P⁻¹AP",
+        "b1": "b₁",
+        "b2": "b₂",
+        "x": "x",
+        "b1Handle": "Premier vecteur de base b₁",
+        "b2Handle": "Deuxième vecteur de base b₂",
+        "xHandle": "Vecteur x",
+        "standardCoordinates": "[x]<sub>std</sub> = ({{x}} ; {{y}})",
+        "basisCoordinates": "[x]<sub>B</sub> = ({{c1}} ; {{c2}})",
+        "coordinateRule": "x = P<sub>B</sub> [x]<sub>B</sub> et [x]<sub>B</sub> = P<sub>B</sub>⁻¹ x",
+        "diagonal": "[A]<sub>B</sub> est diagonale : b₁ et b₂ sont des vecteurs propres de A",
+        "parallel": "b₁ et b₂ sont parallèles : ils ne forment pas une base"
       }
     },
     "svd": {
       "screenSummary": {
-        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
-        "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+        "playArea": "Le cercle unité transformé successivement par Vᵀ, Σ et U en l’ellipse image par A.",
+        "controlArea": "Modifiez A, parcourez les trois étapes avec le curseur, lancez l’animation ou affichez la grille.",
+        "interactionHint": "Quelles directions deviennent les axes de l’ellipse ?"
+      },
+      "controls": {
+        "matrixA": "A",
+        "stage": "Étape",
+        "start": "départ",
+        "vTranspose": "Vᵀ",
+        "sigma": "Σ",
+        "u": "U",
+        "play": "Lecture",
+        "pause": "Pause",
+        "grid": "Grille",
+        "image1": "σ₁u₁",
+        "image2": "σ₂u₂",
+        "unitCircle": "Cercle unité",
+        "rotateV": "Rotation par Vᵀ",
+        "stretch": "Étirement par Σ",
+        "rotateU": "Rotation par U",
+        "flip": "(un axe s’inverse : dét A < 0)",
+        "singularValues": "σ₁ = {{first}}, σ₂ = {{second}}",
+        "rank": "rang = {{value}}",
+        "condition": "nombre de condition σ₁/σ₂ = {{value}}",
+        "singular": "∞ (matrice singulière)",
+        "norm": "‖A‖₂ = σ₁ = {{value}}"
       }
     }
-  },
-  "preferences": {
-    "title": "Simulation"
   },
   "matrix": {
     "entry": "{{label}}, ligne {{row}}, colonne {{column}}",

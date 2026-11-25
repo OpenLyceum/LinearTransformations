@@ -1,53 +1,71 @@
-/**
- * SVDModel.ts
- *
- * The top-level model for the simulation screen.
- *
- * Add your simulation's state here using reactive Property objects from
- * scenerystack/axon. The view observes these properties and updates automatically.
- *
- * ── Example ──────────────────────────────────────────────────────────────────
- *   import { BooleanProperty, NumberProperty } from "scenerystack/axon";
- *
- *   public readonly isRunningProperty = new BooleanProperty(false);
- *   public readonly timeProperty = new NumberProperty(0);    // seconds
- *
- * ── Step cycle ────────────────────────────────────────────────────────────────
- * The Sim calls step(dt) on every animation frame. Advance your model state
- * in that method (e.g. integrate equations, update positions).
- *
- * ── Reset ─────────────────────────────────────────────────────────────────────
- * reset() is called when the user presses Reset All. Call .reset() on every
- * Property declared here.
- */
+import { BooleanProperty, DerivedProperty, NumberProperty } from "scenerystack/axon";
+import { Range } from "scenerystack/dot";
 import type { TModel } from "scenerystack/joist";
+import { MatrixModel } from "../../common/model/MatrixModel.js";
+import { svd, svdAnimation, svdStageMatrix } from "../../common/model/Svd.js";
+import { EPS, SVD_PLAY_SECONDS } from "../../LinearTransformationsConstants.js";
+
+const LAST_STAGE = 3;
 
 export class SVDModel implements TModel {
-  /**
-   * Resets all model state to initial values.
-   * Called when the user presses the Reset All button.
-   */
+  public readonly matrix = new MatrixModel([1.5, 1, 0, 1]);
+  public readonly stageProperty = new NumberProperty(0, { range: new Range(0, LAST_STAGE) });
+  public readonly playingProperty = new BooleanProperty(false);
+  public readonly showGridProperty = new BooleanProperty(false);
+
+  public readonly svdProperty = new DerivedProperty([this.matrix.matrixProperty], svd);
+  public readonly animationProperty = new DerivedProperty([this.matrix.matrixProperty], svdAnimation);
+  public readonly stageMatrixProperty = new DerivedProperty(
+    [this.animationProperty, this.stageProperty],
+    svdStageMatrix,
+  );
+
+  private readonly properties = [this.stageProperty, this.playingProperty, this.showGridProperty];
+
+  public constructor() {
+    this.matrix.matrixProperty.lazyLink(this.restart);
+  }
+
+  private readonly restart = (): void => {
+    this.playingProperty.reset();
+    this.stageProperty.reset();
+  };
+
+  public togglePlayback(): void {
+    if (!this.playingProperty.value && this.stageProperty.value === LAST_STAGE) {
+      this.stageProperty.reset();
+    }
+    this.playingProperty.value = !this.playingProperty.value;
+  }
+
+  // LabView advances playback when this screen is active.
+  public stepPlayback(dt: number): void {
+    if (this.playingProperty.value && dt > 0) {
+      const next = this.stageProperty.value + (LAST_STAGE * dt) / SVD_PLAY_SECONDS;
+      if (next >= LAST_STAGE - EPS) {
+        this.stageProperty.value = LAST_STAGE;
+        this.playingProperty.value = false;
+      } else {
+        this.stageProperty.value = next;
+      }
+    }
+  }
+
   public reset(): void {
-    // TODO: call .reset() on every Property declared in this model
+    this.matrix.reset();
+    for (const property of this.properties) {
+      property.reset();
+    }
   }
 
-  /**
-   * Steps the model forward by dt seconds.
-   * Called every animation frame by the Sim framework.
-   *
-   * @param _dt - elapsed time in seconds since the last frame
-   */
-  public step(_dt: number): void {
-    // For play/pause, speed, and elapsed time, compose TimeModel instead of hand-rolling
-    // a clock: copy src/common/TimeModel.ts (and tests/TimeModel.test.ts) from
-    // SceneryStackTemplate unchanged — Baton's drift check requires an exact match —
-    // then hold one in a readonly `timer` field, step/reset/dispose it, and list it
-    // in tests/memory-leak.test.ts.
-    // TODO: advance simulation state here
-  }
-
-  /** Release owned Properties / composed models. */
   public dispose(): void {
-    // No resources yet.
+    this.matrix.matrixProperty.unlink(this.restart);
+    this.stageMatrixProperty.dispose();
+    this.animationProperty.dispose();
+    this.svdProperty.dispose();
+    for (const property of this.properties) {
+      property.dispose();
+    }
+    this.matrix.dispose();
   }
 }

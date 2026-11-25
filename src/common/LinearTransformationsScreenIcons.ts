@@ -36,7 +36,7 @@ export function createSystemsIcon(): ScreenIcon {
   return iconFrom("M80 320 L470 60", "M80 80 L470 300", "M262 196 m-12 0 a12 12 0 1 0 24 0 a12 12 0 1 0 -24 0");
 }
 
-export function createEigenvectorsIcon(): ScreenIcon {
+export function createEigenIcon(): ScreenIcon {
   return iconFrom("M80 300 L470 70", "M274 186 L380 124", "M274 186 L440 88");
 }
 
@@ -44,10 +44,10 @@ export function createProjectionIcon(): ScreenIcon {
   return iconFrom("M80 300 L470 160", "M150 275 L300 80", "M300 80 L300 220");
 }
 
-export function createChangeOfBasisIcon(): ScreenIcon {
+export function createBasisIcon(): ScreenIcon {
   return iconFrom("M120 300 L470 200 M60 200 L410 100", "M120 300 L180 80 M300 250 L360 30", "M120 300 L330 170");
 }
 
-export function createSVDIcon(): ScreenIcon {
+export function createSvdIcon(): ScreenIcon {
   return iconFrom("M274 186 m-150 0 a150 70 25 1 0 300 0 a150 70 25 1 0 -300 0", "M274 186 L410 120");
 }

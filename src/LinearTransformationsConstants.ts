@@ -47,6 +47,9 @@ export const TITLE_TO_PLOT_GAP = 14;
 /** Shared lab design height (px), including space for matrix editors. */
 export const LAYOUT_HEIGHT = 655;
 
+/** Display width (px) for each of the seven navigation bar icons. */
+export const NAVIGATION_ICON_WIDTH = 30;
+
 /** Visible model window, in units. Plane keeps square units at 46.75 px per unit. */
 export const X_RANGE = new Range(-5.5, 5.5);
 export const Y_RANGE = new Range(-4, 4);
@@ -73,7 +76,7 @@ export const GRID_LINES = 8;
 
 /** Duration of a complete eigenvector sweep (seconds). */
 export const SWEEP_SECONDS = 6;
-const SVD_PLAY_SECONDS = 4.5;
+export const SVD_PLAY_SECONDS = 4.5;
 
 /** Number of matrix applications shown in the iteration orbit. */
 export const ITERATIONS = 10;
@@ -88,6 +91,7 @@ LinearTransformationsNamespace.register("LinearTransformationsConstants", {
   PANEL_GAP,
   TITLE_TO_PLOT_GAP,
   LAYOUT_HEIGHT,
+  NAVIGATION_ICON_WIDTH,
   X_RANGE,
   Y_RANGE,
   HANDLE_X_RANGE,

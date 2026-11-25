@@ -142,11 +142,4 @@ export class StringManager {
   public getSVDA11yStrings() {
     return stringProperties.a11y.svd;
   }
-
-  /**
-   * Simulation-specific preference labels shown in Preferences → Simulation.
-   */
-  public getPreferences() {
-    return stringProperties.preferences;
-  }
 }

@@ -53,7 +53,11 @@ export function slider(
   label: TReadOnlyProperty<string>,
   value: NumberProperty,
   step: number,
-  { suffix = "", range = value.range }: { suffix?: string; range?: Range } = {},
+  {
+    suffix = "",
+    range = value.range,
+    majorTicks = [],
+  }: { suffix?: string; range?: Range; majorTicks?: readonly { value: number; label: StringSource }[] } = {},
 ): VBox {
   const caption = computed(
     [label, value],
@@ -68,7 +72,14 @@ export function slider(
     trackSize: new Dimension2(243, 4),
     thumbSize: new Dimension2(16, 21),
     thumbFill: Colors.accentColorProperty,
+    majorTickLength: 9,
+    majorTickStroke: Colors.textColorProperty,
   });
+  for (const { value: tickValue, label: tickLabel } of majorTicks) {
+    const tickLabelNode = text(tickLabel, 13, 66);
+    control.addMajorTick(tickValue, tickLabelNode);
+    control.addDisposable(tickLabelNode);
+  }
   const labelNode = text(caption, 15, 288, true);
   labelNode.addDisposable(caption);
   return new VBox({ children: [labelNode, control], spacing: 3, align: "left" });

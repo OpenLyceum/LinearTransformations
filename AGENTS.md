@@ -41,5 +41,3 @@ Linear Transformations (`linear-transformations`) is a SceneryStack simulation s
 ## Compliance carve-outs
 
 - `src/common/LabView.ts`: Forked from ContourExplorer, with screen summaries constructed in the shared view. Disposal allows the base Node to clear its PDOM order because ScreenView rejects that call.
-- `no-unreachable-from-entry`: The local rule permits only the Phase 1 Svd module to await a screen caller. All other architecture rules still apply. Restore the fleet reachability rule when Svd is wired into the SVD screen.
-- `knip.json`: The Svd model file is temporarily exempt from unused-file reports. The model tests exercise its API. Shared linear algebra functions awaiting the later screens are marked `@public` individually. Remove the exemptions as production callers are added. When removing the architecture overlay, restore the template’s optional-overlay entry in `ignoreUnresolved`.
