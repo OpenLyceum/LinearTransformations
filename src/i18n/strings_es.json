@@ -1,8 +1,8 @@
 {
-  "title": "Linear Transformations",
+  "title": "Transformaciones lineales",
   "screens": {
     "span": "Span",
-    "transform": "Transform",
+    "transform": "Transformación",
     "systems": "Systems",
     "eigen": "Eigenvectors",
     "projection": "Projection",
@@ -33,9 +33,32 @@
     },
     "transform": {
       "screenSummary": {
-        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
-        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+        "playArea": "La cuadrícula, el cuadrado unidad y la letra F transformados por la matriz A.",
+        "controlArea": "Arrastra las imágenes de î y ĵ, edita A, elige una matriz predefinida, pasa gradualmente de I a A o compón con B.",
+        "interactionHint": "¿Qué mide el determinante? ¿Qué ocurre cuando es cero o negativo?"
+      },
+      "controls": {
+        "morph": "Transición I → A",
+        "grid": "Cuadrícula",
+        "letterF": "Letra F",
+        "compose": "Componer con B",
+        "order": "Orden de composición",
+        "orderBA": "BA: primero A, luego B",
+        "orderAB": "AB: primero B, luego A",
+        "matrixA": "A",
+        "matrixB": "B",
+        "productBA": "BA",
+        "productAB": "AB",
+        "arrow1": "î′",
+        "arrow2": "ĵ′",
+        "handle1": "Imagen de î (primera columna de A)",
+        "handle2": "Imagen de ĵ (segunda columna de A)",
+        "areaScale": "Factor de escala de área |det| = {{value}}",
+        "preserved": "Se conserva la orientación",
+        "reversed": "Se invierte la orientación",
+        "collapsed": "El plano se reduce a una recta o a un punto",
+        "productDet": "det({{product}}) = det {{left}} · det {{right}} = {{value}}",
+        "noncommuting": "Aquí, AB ≠ BA"
       }
     },
     "systems": {
@@ -76,5 +99,15 @@
   },
   "preferences": {
     "title": "Simulación"
+  },
+  "matrix": {
+    "entry": "{{label}}, fila {{row}}, columna {{column}}",
+    "det": "det {{label}} = {{value}}",
+    "preset": "Matriz predefinida",
+    "label": "{{label}} =",
+    "readout": "{{label}}, fila 1: {{a}} y {{b}}. Fila 2: {{c}} y {{d}}."
+  },
+  "vector": {
+    "coordinates": "({{x}}; {{y}})"
   }
 }

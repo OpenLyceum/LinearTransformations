@@ -1,53 +1,51 @@
-/**
- * TransformModel.ts
- *
- * The top-level model for the simulation screen.
- *
- * Add your simulation's state here using reactive Property objects from
- * scenerystack/axon. The view observes these properties and updates automatically.
- *
- * ── Example ──────────────────────────────────────────────────────────────────
- *   import { BooleanProperty, NumberProperty } from "scenerystack/axon";
- *
- *   public readonly isRunningProperty = new BooleanProperty(false);
- *   public readonly timeProperty = new NumberProperty(0);    // seconds
- *
- * ── Step cycle ────────────────────────────────────────────────────────────────
- * The Sim calls step(dt) on every animation frame. Advance your model state
- * in that method (e.g. integrate equations, update positions).
- *
- * ── Reset ─────────────────────────────────────────────────────────────────────
- * reset() is called when the user presses Reset All. Call .reset() on every
- * Property declared here.
- */
+import { BooleanProperty, DerivedProperty, NumberProperty, StringUnionProperty } from "scenerystack/axon";
+import { Range } from "scenerystack/dot";
 import type { TModel } from "scenerystack/joist";
+import { IDENTITY, lerp, multiply } from "../../common/model/LinearAlgebra.js";
+import { MatrixModel } from "../../common/model/MatrixModel.js";
 
 export class TransformModel implements TModel {
-  /**
-   * Resets all model state to initial values.
-   * Called when the user presses the Reset All button.
-   */
+  public readonly matrix = new MatrixModel("shear");
+  public readonly second = new MatrixModel("rotation90");
+  public readonly morphProperty = new NumberProperty(1, { range: new Range(0, 1) });
+  public readonly showFProperty = new BooleanProperty(true);
+  public readonly showGridProperty = new BooleanProperty(true);
+  public readonly composeProperty = new BooleanProperty(false);
+  public readonly orderProperty = new StringUnionProperty<"BA" | "AB">("BA", { validValues: ["BA", "AB"] });
+
+  private readonly properties = [
+    this.morphProperty,
+    this.showFProperty,
+    this.showGridProperty,
+    this.composeProperty,
+    this.orderProperty,
+  ];
+
+  public readonly productProperty = new DerivedProperty(
+    [this.matrix.matrixProperty, this.second.matrixProperty, this.orderProperty],
+    (a, b, order) => (order === "BA" ? multiply(b, a) : multiply(a, b)),
+  );
+
+  public readonly effectiveMatrixProperty = new DerivedProperty(
+    [this.matrix.matrixProperty, this.productProperty, this.composeProperty, this.morphProperty],
+    (a, product, compose, morph) => lerp(IDENTITY, compose ? product : a, morph),
+  );
+
   public reset(): void {
-    // TODO: call .reset() on every Property declared in this model
+    this.matrix.reset();
+    this.second.reset();
+    for (const property of this.properties) {
+      property.reset();
+    }
   }
 
-  /**
-   * Steps the model forward by dt seconds.
-   * Called every animation frame by the Sim framework.
-   *
-   * @param _dt - elapsed time in seconds since the last frame
-   */
-  public step(_dt: number): void {
-    // For play/pause, speed, and elapsed time, compose TimeModel instead of hand-rolling
-    // a clock: copy src/common/TimeModel.ts (and tests/TimeModel.test.ts) from
-    // SceneryStackTemplate unchanged — Baton's drift check requires an exact match —
-    // then hold one in a readonly `timer` field, step/reset/dispose it, and list it
-    // in tests/memory-leak.test.ts.
-    // TODO: advance simulation state here
-  }
-
-  /** Release owned Properties / composed models. */
   public dispose(): void {
-    // No resources yet.
+    this.effectiveMatrixProperty.dispose();
+    this.productProperty.dispose();
+    for (const property of this.properties) {
+      property.dispose();
+    }
+    this.second.dispose();
+    this.matrix.dispose();
   }
 }

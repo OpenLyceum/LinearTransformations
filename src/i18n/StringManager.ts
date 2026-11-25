@@ -96,6 +96,18 @@ export class StringManager {
     };
   }
 
+  public getPresetStrings() {
+    return stringProperties.presets;
+  }
+
+  public getMatrixStrings() {
+    return stringProperties.matrix;
+  }
+
+  public getVectorStrings() {
+    return stringProperties.vector;
+  }
+
   /** Accessibility strings for the Span screen. */
   public getSpanA11yStrings() {
     return stringProperties.a11y.span;

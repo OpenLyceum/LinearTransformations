@@ -1,8 +1,8 @@
 {
-  "title": "Linear Transformations",
+  "title": "Transformations linéaires",
   "screens": {
     "span": "Span",
-    "transform": "Transform",
+    "transform": "Transformation",
     "systems": "Systems",
     "eigen": "Eigenvectors",
     "projection": "Projection",
@@ -33,9 +33,32 @@
     },
     "transform": {
       "screenSummary": {
-        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
-        "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+        "playArea": "La grille, le carré unité et la lettre F transformés par la matrice A.",
+        "controlArea": "Déplacez les images de î et de ĵ, modifiez A, choisissez une matrice prédéfinie, passez progressivement de I à A ou composez avec B.",
+        "interactionHint": "Que mesure le déterminant ? Que se passe-t-il quand il est nul ou négatif ?"
+      },
+      "controls": {
+        "morph": "Transition I → A",
+        "grid": "Grille",
+        "letterF": "Lettre F",
+        "compose": "Composer avec B",
+        "order": "Ordre de composition",
+        "orderBA": "BA : A d’abord, puis B",
+        "orderAB": "AB : B d’abord, puis A",
+        "matrixA": "A",
+        "matrixB": "B",
+        "productBA": "BA",
+        "productAB": "AB",
+        "arrow1": "î′",
+        "arrow2": "ĵ′",
+        "handle1": "Image de î (première colonne de A)",
+        "handle2": "Image de ĵ (deuxième colonne de A)",
+        "areaScale": "Facteur d’échelle des aires |dét| = {{value}}",
+        "preserved": "Orientation conservée",
+        "reversed": "Orientation inversée",
+        "collapsed": "Le plan se réduit à une droite ou à un point",
+        "productDet": "dét({{product}}) = dét {{left}} · dét {{right}} = {{value}}",
+        "noncommuting": "Ici, AB ≠ BA"
       }
     },
     "systems": {
@@ -76,5 +99,15 @@
   },
   "preferences": {
     "title": "Simulation"
+  },
+  "matrix": {
+    "entry": "{{label}}, ligne {{row}}, colonne {{column}}",
+    "det": "dét {{label}} = {{value}}",
+    "preset": "Matrice prédéfinie",
+    "label": "{{label}} =",
+    "readout": "{{label}}, ligne 1 : {{a}} et {{b}}. Ligne 2 : {{c}} et {{d}}."
+  },
+  "vector": {
+    "coordinates": "({{x}} ; {{y}})"
   }
 }

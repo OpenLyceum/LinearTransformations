@@ -1,11 +1,11 @@
 // Fork of ContourExplorer/src/common/LabView.ts. Adds `belowPlot` and extra plot colours; does not sync back.
-import type { Property, TReadOnlyProperty } from "scenerystack/axon";
-import { Bounds2, type Range } from "scenerystack/dot";
+import { DerivedProperty, type NumberProperty, type Property, type TReadOnlyProperty } from "scenerystack/axon";
+import { Bounds2, Dimension2, type Range, roundSymmetric, toFixedNumber } from "scenerystack/dot";
 import { localeProperty } from "scenerystack/joist";
 import { CanvasNode, Node, RichText, Text, VBox } from "scenerystack/scenery";
 import { ResetAllButton } from "scenerystack/scenery-phet";
 import { ScreenSummaryContent, ScreenView, type ScreenViewOptions } from "scenerystack/sim";
-import { AquaRadioButtonGroup, ComboBox, RectangularPushButton } from "scenerystack/sun";
+import { AquaRadioButtonGroup, Checkbox, ComboBox, HSlider, RectangularPushButton } from "scenerystack/sun";
 import Colors from "../LinearTransformationsColors.js";
 import {
   PANEL_GAP,
@@ -28,7 +28,11 @@ type StringSource = string | TReadOnlyProperty<string>;
 type Dependencies = readonly TReadOnlyProperty<unknown>[];
 type Point = readonly [number, number];
 
-function format(value: number, digits = 2): string {
+export function computed(dependencies: Dependencies, calculate: () => string) {
+  return DerivedProperty.deriveAny([localeProperty, ...dependencies], calculate);
+}
+
+export function format(value: number, digits = 2): string {
   return new Intl.NumberFormat(localeProperty.value, {
     maximumFractionDigits: digits,
   }).format(Math.abs(value) < 10 ** -digits / 2 ? 0 : value);
@@ -42,11 +46,33 @@ function text(value: StringSource, size: number, width: number, bold = false): T
   });
 }
 
+export function slider(label: TReadOnlyProperty<string>, value: NumberProperty, step: number): VBox {
+  const caption = computed([label, value], () => `${label.value}  ${format(value.value)}`);
+  const control = new HSlider(value, value.range, {
+    accessibleName: label,
+    keyboardStep: step,
+    constrainValue: (next) => value.range.constrainValue(toFixedNumber(roundSymmetric(next / step) * step, 8)),
+    pdomCreateAriaValueText: (current) => format(current ?? value.value),
+    trackSize: new Dimension2(243, 4),
+    thumbSize: new Dimension2(16, 21),
+    thumbFill: Colors.accentColorProperty,
+  });
+  const labelNode = text(caption, 15, 288, true);
+  labelNode.addDisposable(caption);
+  return new VBox({ children: [labelNode, control], spacing: 3, align: "left" });
+}
+
+export function checkbox(label: TReadOnlyProperty<string>, value: ConstructorParameters<typeof Checkbox>[0]): Checkbox {
+  return new Checkbox(value, text(label, 15, 265), {
+    accessibleName: label,
+    checkboxColor: Colors.controlSurfaceTextColorProperty,
+    checkboxColorBackground: Colors.controlSurfaceColorProperty,
+  });
+}
+
 /**
  * A drop-down list for choosing one of several named items (surfaces, fields, regions). Labels may
  * carry RichText markup. The open list is drawn in `listParent`, which LabView keeps on top.
- *
- * @public
  */
 export function comboBox<T>(
   property: ConstructorParameters<typeof ComboBox<T>>[0],
@@ -96,7 +122,7 @@ export function choice(label: TReadOnlyProperty<string>, caption: TReadOnlyPrope
   });
 }
 
-/** Radio groups for the screen controls specified in later phases. @public */
+/** Vertical radio groups for screen controls. */
 export function radioButtons<T>(
   property: Property<T>,
   items: readonly { value: T; label: TReadOnlyProperty<string> }[],
@@ -137,15 +163,14 @@ export class LabView extends ScreenView {
   private readonly stepCallback: LabViewConfig["step"];
 
   public constructor(config: LabViewConfig, options?: ScreenViewOptions) {
-    super({
-      ...options,
-      screenSummaryContent: new ScreenSummaryContent({
-        playAreaContent: config.summary.playAreaStringProperty,
-        controlAreaContent: config.summary.controlAreaStringProperty,
-        interactionHintContent: config.summary.interactionHintStringProperty,
-        currentDetailsContent: config.details,
-      }),
+    const summary = new ScreenSummaryContent({
+      playAreaContent: config.summary.playAreaStringProperty,
+      controlAreaContent: config.summary.controlAreaStringProperty,
+      interactionHintContent: config.summary.interactionHintStringProperty,
+      currentDetailsContent: config.details,
     });
+    super({ ...options, screenSummaryContent: summary });
+    this.isDisposable = true;
 
     this.stepCallback = config.step;
 
@@ -196,6 +221,31 @@ export class LabView extends ScreenView {
       pdomOrder: [config.plot, panel, ...belowPlotNodes, reset],
     });
     this.addChild(content);
+    const ownedChildren = this.children;
+    this.addDisposable({
+      dispose: () => {
+        // ScreenSummaryContent creates its own derived voicing properties.
+        summary.setCurrentDetailsContent(null);
+        summary.setInteractionHintContent(null);
+        summary.setPlayAreaContent(null);
+        summary.setControlAreaContent(null);
+        this.screenSummaryContent = null;
+        summary.disposeSubtree();
+        for (const child of ownedChildren) {
+          child.disposeSubtree();
+        }
+        this.visibleBoundsProperty.dispose();
+      },
+    });
+  }
+
+  public override setPDOMOrder(order: Array<Node | null> | null): void {
+    // Node.dispose clears the order, which ScreenView's override otherwise rejects.
+    if (order === null) {
+      Node.prototype.setPDOMOrder.call(this, null);
+    } else {
+      super.setPDOMOrder(order);
+    }
   }
 
   public override step(dt: number): void {
@@ -304,6 +354,10 @@ export class Plane {
 
   public project = ([x, y]: Point): Point => [this.origin[0] + x * this.scale, this.origin[1] - y * this.scale];
 
+  public unproject([x, y]: Point): Point {
+    return [(x - this.origin[0]) / this.scale, (this.origin[1] - y) / this.scale];
+  }
+
   public axes(context: CanvasRenderingContext2D, colors: PlotColors): void {
     const { min: x0, max: x1 } = this.xRange;
     const { min: y0, max: y1 } = this.yRange;
@@ -326,7 +380,7 @@ export class Plane {
   }
 }
 
-function line(
+export function line(
   context: CanvasRenderingContext2D,
   points: readonly Point[],
   stroke: string,
@@ -352,7 +406,34 @@ function line(
   context.stroke();
 }
 
-function plotLabel(context: CanvasRenderingContext2D, value: string, point: Point, color: string): void {
+export function arrow(context: CanvasRenderingContext2D, from: Point, to: Point, color: string, width = 2): void {
+  const length = Math.hypot(to[0] - from[0], to[1] - from[1]);
+  if (length < 2) {
+    return;
+  }
+  const angle = Math.atan2(to[1] - from[1], to[0] - from[0]);
+  const head = Math.min(length / 2, 10);
+  line(context, [from, to], color, width);
+  line(
+    context,
+    [
+      [to[0] - head * Math.cos(angle - 0.48), to[1] - head * Math.sin(angle - 0.48)],
+      to,
+      [to[0] - head * Math.cos(angle + 0.48), to[1] - head * Math.sin(angle + 0.48)],
+    ],
+    color,
+    width,
+  );
+}
+
+export function dot(context: CanvasRenderingContext2D, point: Point, color: string, radius = 5): void {
+  context.beginPath();
+  context.arc(...point, radius, 0, 2 * Math.PI);
+  context.fillStyle = color;
+  context.fill();
+}
+
+export function plotLabel(context: CanvasRenderingContext2D, value: string, point: Point, color: string): void {
   context.font = "13px sans-serif";
   context.fillStyle = color;
   context.fillText(value, ...point);

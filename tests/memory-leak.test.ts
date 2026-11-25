@@ -17,12 +17,23 @@ import { SpanModel } from "../src/span/model/SpanModel.js";
 import { SVDModel } from "../src/svd/model/SVDModel.js";
 import { SystemsModel } from "../src/systems/model/SystemsModel.js";
 import { TransformModel } from "../src/transform/model/TransformModel.js";
+import { TransformScreenView } from "../src/transform/view/TransformScreenView.js";
 import { describeDisposalLeaks } from "./helpers/memoryLeak.js";
 
 describeDisposalLeaks([
   { name: "MatrixModel", create: () => new MatrixModel("identity") },
   { name: "SpanModel", create: () => new SpanModel() },
   { name: "TransformModel", create: () => new TransformModel() },
+  {
+    name: "TransformScreenView",
+    create: () => {
+      const model = new TransformModel();
+      const view = new TransformScreenView(model);
+      model.composeProperty.value = true;
+      view.addDisposable(model);
+      return view;
+    },
+  },
   { name: "SystemsModel", create: () => new SystemsModel() },
   { name: "EigenvectorsModel", create: () => new EigenvectorsModel() },
   { name: "ProjectionModel", create: () => new ProjectionModel() },

@@ -44,29 +44,32 @@ export const PANEL_GAP = 18;
 /** Gap between title and plot/panel row (px). */
 export const TITLE_TO_PLOT_GAP = 14;
 
+/** Design height (px) for the plot plus two rows of matrix spinners. */
+export const TRANSFORM_LAYOUT_HEIGHT = 655;
+
 /** Visible model window, in units. Plane keeps square units at 46.75 px per unit. */
 export const X_RANGE = new Range(-5.5, 5.5);
 export const Y_RANGE = new Range(-4, 4);
 
 /** Handle limits in model units keep vector tips on screen. */
-const HANDLE_X_RANGE = new Range(-5, 5);
-const HANDLE_Y_RANGE = new Range(-3.6, 3.6);
+export const HANDLE_X_RANGE = new Range(-5, 5);
+export const HANDLE_Y_RANGE = new Range(-3.6, 3.6);
 
-/** Limits of every editable matrix entry. @public */
+/** Limits of every editable matrix entry. */
 export const ENTRY_RANGE = new Range(-3.5, 3.5);
 
 /** Pointer snap and arrow-key step in model units. */
-const DRAG_SNAP = 0.1;
-const KEYBOARD_STEP = 0.1;
+export const DRAG_SNAP = 0.1;
+export const KEYBOARD_STEP = 0.1;
 
-/** Exact-zero tolerance for snapped inputs. @public */
+/** Exact-zero tolerance for snapped inputs. */
 export const EPS = 1e-9;
 
 /** Sine of the angular tolerance for testing parallel eigenvectors. */
 const PARALLEL_SIN = Math.sin((1.5 * Math.PI) / 180);
 
 /** The transformed grid uses integer lines from minus this value to plus it. */
-const GRID_LINES = 8;
+export const GRID_LINES = 8;
 const SWEEP_SECONDS = 6;
 const SVD_PLAY_SECONDS = 4.5;
 const ITERATIONS = 10;
@@ -80,6 +83,7 @@ LinearTransformationsNamespace.register("LinearTransformationsConstants", {
   PANEL_MIN_WIDTH,
   PANEL_GAP,
   TITLE_TO_PLOT_GAP,
+  TRANSFORM_LAYOUT_HEIGHT,
   X_RANGE,
   Y_RANGE,
   HANDLE_X_RANGE,

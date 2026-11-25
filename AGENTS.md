@@ -40,6 +40,6 @@ Linear Transformations (`linear-transformations`) is a SceneryStack simulation s
 
 ## Compliance carve-outs
 
-- `src/common/LabView.ts`: Forked from ContourExplorer, with screen summaries constructed in the shared view.
-- `no-unreachable-from-entry`: The local rule permits only the seven Phase 1 model modules to await screen callers. All other architecture rules still apply. Restore the fleet reachability rule when all seven modules are wired into the screens.
-- `knip.json`: The same seven model files are temporarily exempt from unused-file reports. The model tests exercise their APIs. Remove the exemptions and the `@public` tags on `ENTRY_RANGE` and `EPS` as production callers are added. When removing the architecture overlay, restore the template’s optional-overlay entry in `ignoreUnresolved`.
+- `src/common/LabView.ts`: Forked from ContourExplorer, with screen summaries constructed in the shared view. Disposal allows the base Node to clear its PDOM order because ScreenView rejects that call.
+- `no-unreachable-from-entry`: The local rule permits only four Phase 1 model modules (Eigen, LeastSquares, RowReduction, and Svd) to await screen callers. All other architecture rules still apply. Restore the fleet reachability rule when the remaining modules are wired into the screens.
+- `knip.json`: The same four model files are temporarily exempt from unused-file reports. The model tests exercise their APIs. Shared linear algebra functions awaiting the later screens are marked `@public` individually. Remove the exemptions as production callers are added. When removing the architecture overlay, restore the template’s optional-overlay entry in `ignoreUnresolved`.

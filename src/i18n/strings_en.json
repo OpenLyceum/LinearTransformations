@@ -33,9 +33,32 @@
     },
     "transform": {
       "screenSummary": {
-        "playArea": "A coordinate grid shows the x- and y-axes.",
-        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Use Reset All to restore the screen."
+        "playArea": "The grid, unit square and letter F transformed by matrix A.",
+        "controlArea": "Drag where î and ĵ land, edit A, pick a preset, morph from I to A, or compose with B.",
+        "interactionHint": "What does the determinant measure? What happens when it is 0 or negative?"
+      },
+      "controls": {
+        "morph": "Morph I → A",
+        "grid": "Grid",
+        "letterF": "Letter F",
+        "compose": "Compose with B",
+        "order": "Composition order",
+        "orderBA": "BA: A first, then B",
+        "orderAB": "AB: B first, then A",
+        "matrixA": "A",
+        "matrixB": "B",
+        "productBA": "BA",
+        "productAB": "AB",
+        "arrow1": "î′",
+        "arrow2": "ĵ′",
+        "handle1": "Image of î (first column of A)",
+        "handle2": "Image of ĵ (second column of A)",
+        "areaScale": "Area scale factor |det| = {{value}}",
+        "preserved": "Orientation preserved",
+        "reversed": "Orientation reversed",
+        "collapsed": "Plane collapsed onto a line or a point",
+        "productDet": "det({{product}}) = det {{left}} · det {{right}} = {{value}}",
+        "noncommuting": "AB ≠ BA here"
       }
     },
     "systems": {
@@ -76,5 +99,15 @@
   },
   "preferences": {
     "title": "Simulation"
+  },
+  "matrix": {
+    "entry": "{{label}} row {{row}} column {{column}}",
+    "det": "det {{label}} = {{value}}",
+    "preset": "Matrix preset",
+    "label": "{{label}} =",
+    "readout": "{{label}} row 1: {{a}} and {{b}}. Row 2: {{c}} and {{d}}."
+  },
+  "vector": {
+    "coordinates": "({{x}}, {{y}})"
   }
 }

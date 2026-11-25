@@ -4,7 +4,7 @@
   "entry": [],
   "ignoreFiles": [],
   "ignoreIssues": {
-    "src/common/model/{Eigen,LeastSquares,LinearAlgebra,MatrixModel,Presets,RowReduction,Svd}.ts": ["files"]
+    "src/common/model/{Eigen,LeastSquares,RowReduction,Svd}.ts": ["files"]
   },
   "ignoreDependencies": ["@swc/core"],
   "ignoreUnresolved": [],
