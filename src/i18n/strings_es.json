@@ -9,62 +9,69 @@
     "basis": "Change of Basis",
     "svd": "SVD"
   },
+  "presets": {
+    "custom": "Personalizada",
+    "identity": "Identidad",
+    "rotation90": "Rotación de 90°",
+    "rotation45": "Rotación de 45°",
+    "scale": "Escalamiento",
+    "shear": "Cizallamiento",
+    "reflectX": "Reflexión respecto al eje x",
+    "reflectDiagonal": "Reflexión respecto a y = x",
+    "projectX": "Proyección sobre el eje x",
+    "singular": "Singular",
+    "symmetric": "Simétrica",
+    "rotationScale": "Rotación y escalamiento"
+  },
   "a11y": {
     "span": {
       "screenSummary": {
-        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
         "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Explora la simulación interactuando con sus controles."
-      },
-      "currentDetails": "La simulación está en su estado inicial."
+        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+      }
     },
     "transform": {
       "screenSummary": {
-        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
         "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Explora la simulación interactuando con sus controles."
-      },
-      "currentDetails": "La simulación está en su estado inicial."
+        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+      }
     },
     "systems": {
       "screenSummary": {
-        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
         "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Explora la simulación interactuando con sus controles."
-      },
-      "currentDetails": "La simulación está en su estado inicial."
+        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+      }
     },
     "eigen": {
       "screenSummary": {
-        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
         "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Explora la simulación interactuando con sus controles."
-      },
-      "currentDetails": "La simulación está en su estado inicial."
+        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+      }
     },
     "projection": {
       "screenSummary": {
-        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
         "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Explora la simulación interactuando con sus controles."
-      },
-      "currentDetails": "La simulación está en su estado inicial."
+        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+      }
     },
     "basis": {
       "screenSummary": {
-        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
         "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Explora la simulación interactuando con sus controles."
-      },
-      "currentDetails": "La simulación está en su estado inicial."
+        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+      }
     },
     "svd": {
       "screenSummary": {
-        "playArea": "El área de juego muestra el contenido principal de la simulación.",
+        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
         "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Explora la simulación interactuando con sus controles."
-      },
-      "currentDetails": "La simulación está en su estado inicial."
+        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+      }
     }
   },
   "preferences": {

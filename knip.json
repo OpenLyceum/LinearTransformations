@@ -3,8 +3,11 @@
   "project": ["src/**/*.ts!", "scripts/**/*.{ts,js,mjs,cjs}", "tests/**/*.ts", "*.{ts,js,mjs,cjs}"],
   "entry": [],
   "ignoreFiles": [],
+  "ignoreIssues": {
+    "src/common/model/{Eigen,LeastSquares,LinearAlgebra,MatrixModel,Presets,RowReduction,Svd}.ts": ["files"]
+  },
   "ignoreDependencies": ["@swc/core"],
-  "ignoreUnresolved": ["./.dependency-cruiser.local.cjs"],
+  "ignoreUnresolved": [],
   "ignoreBinaries": ["vite!"],
   "includeEntryExports": true,
   "treatConfigHintsAsErrors": true,

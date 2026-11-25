@@ -9,62 +9,69 @@
     "basis": "Change of Basis",
     "svd": "SVD"
   },
+  "presets": {
+    "custom": "Custom",
+    "identity": "Identity",
+    "rotation90": "Rotation 90°",
+    "rotation45": "Rotation 45°",
+    "scale": "Scale",
+    "shear": "Shear",
+    "reflectX": "Reflect across x-axis",
+    "reflectDiagonal": "Reflect across y = x",
+    "projectX": "Project onto x-axis",
+    "singular": "Singular",
+    "symmetric": "Symmetric",
+    "rotationScale": "Rotation + scale"
+  },
   "a11y": {
     "span": {
       "screenSummary": {
-        "playArea": "The play area shows the main simulation content.",
+        "playArea": "A coordinate grid shows the x- and y-axes.",
         "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Explore the simulation by interacting with its controls."
-      },
-      "currentDetails": "The simulation is in its initial state."
+        "interactionHint": "Use Reset All to restore the screen."
+      }
     },
     "transform": {
       "screenSummary": {
-        "playArea": "The play area shows the main simulation content.",
+        "playArea": "A coordinate grid shows the x- and y-axes.",
         "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Explore the simulation by interacting with its controls."
-      },
-      "currentDetails": "The simulation is in its initial state."
+        "interactionHint": "Use Reset All to restore the screen."
+      }
     },
     "systems": {
       "screenSummary": {
-        "playArea": "The play area shows the main simulation content.",
+        "playArea": "A coordinate grid shows the x- and y-axes.",
         "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Explore the simulation by interacting with its controls."
-      },
-      "currentDetails": "The simulation is in its initial state."
+        "interactionHint": "Use Reset All to restore the screen."
+      }
     },
     "eigen": {
       "screenSummary": {
-        "playArea": "The play area shows the main simulation content.",
+        "playArea": "A coordinate grid shows the x- and y-axes.",
         "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Explore the simulation by interacting with its controls."
-      },
-      "currentDetails": "The simulation is in its initial state."
+        "interactionHint": "Use Reset All to restore the screen."
+      }
     },
     "projection": {
       "screenSummary": {
-        "playArea": "The play area shows the main simulation content.",
+        "playArea": "A coordinate grid shows the x- and y-axes.",
         "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Explore the simulation by interacting with its controls."
-      },
-      "currentDetails": "The simulation is in its initial state."
+        "interactionHint": "Use Reset All to restore the screen."
+      }
     },
     "basis": {
       "screenSummary": {
-        "playArea": "The play area shows the main simulation content.",
+        "playArea": "A coordinate grid shows the x- and y-axes.",
         "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Explore the simulation by interacting with its controls."
-      },
-      "currentDetails": "The simulation is in its initial state."
+        "interactionHint": "Use Reset All to restore the screen."
+      }
     },
     "svd": {
       "screenSummary": {
-        "playArea": "The play area shows the main simulation content.",
+        "playArea": "A coordinate grid shows the x- and y-axes.",
         "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Explore the simulation by interacting with its controls."
-      },
-      "currentDetails": "The simulation is in its initial state."
+        "interactionHint": "Use Reset All to restore the screen."
+      }
     }
   },
   "preferences": {

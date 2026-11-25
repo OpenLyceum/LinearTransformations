@@ -72,6 +72,12 @@ const LinearTransformationsColors = {
     projector: "#1a1a1a",
   }),
 
+  /** Contrasting marks for comparisons in a plot. */
+  secondaryPlotColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "secondaryPlot", {
+    default: "#ffbc75",
+    projector: "#985021",
+  }),
+
   // ── Light control surfaces ───────────────────────────────────────────────────
   // White chrome (combo boxes, flat push buttons, editable input fields) stays light
   // in both profiles; its text stays dark. Same values in default and projector mode,
@@ -97,6 +103,39 @@ const LinearTransformationsColors = {
   controlSurfaceTextColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "controlSurfaceText", {
     default: "#1a1a1a",
     projector: "#1a1a1a",
+  }),
+
+  column1ColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "column1", {
+    default: "#ff7a7a",
+    projector: "#b3261e",
+  }),
+  column2ColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "column2", {
+    default: "#7ad7ff",
+    projector: "#0b5cad",
+  }),
+  inputVectorColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "inputVector", {
+    default: "#ffd54f",
+    projector: "#8a6d00",
+  }),
+  outputVectorColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "outputVector", {
+    default: "#b388ff",
+    projector: "#5e35b1",
+  }),
+  eigenColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "eigen", {
+    default: "#69f0ae",
+    projector: "#1b7a43",
+  }),
+  positiveAreaColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "positiveArea", {
+    default: "rgba(79,195,247,0.25)",
+    projector: "rgba(11,92,173,0.18)",
+  }),
+  negativeAreaColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "negativeArea", {
+    default: "rgba(255,188,117,0.3)",
+    projector: "rgba(152,80,33,0.2)",
+  }),
+  faintGridColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "faintGrid", {
+    default: "#2a3a5e",
+    projector: "#dddddd",
   }),
 };
 

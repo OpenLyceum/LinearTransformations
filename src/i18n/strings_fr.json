@@ -9,62 +9,69 @@
     "basis": "Change of Basis",
     "svd": "SVD"
   },
+  "presets": {
+    "custom": "Personnalisée",
+    "identity": "Identité",
+    "rotation90": "Rotation de 90°",
+    "rotation45": "Rotation de 45°",
+    "scale": "Mise à l’échelle",
+    "shear": "Cisaillement",
+    "reflectX": "Symétrie par rapport à l’axe des x",
+    "reflectDiagonal": "Symétrie par rapport à y = x",
+    "projectX": "Projection sur l’axe des x",
+    "singular": "Singulière",
+    "symmetric": "Symétrique",
+    "rotationScale": "Rotation et mise à l’échelle"
+  },
   "a11y": {
     "span": {
       "screenSummary": {
-        "playArea": "La zone de jeu affiche le contenu principal de la simulation.",
+        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
         "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Explorez la simulation en interagissant avec ses commandes."
-      },
-      "currentDetails": "La simulation est dans son état initial."
+        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+      }
     },
     "transform": {
       "screenSummary": {
-        "playArea": "La zone de jeu affiche le contenu principal de la simulation.",
+        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
         "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Explorez la simulation en interagissant avec ses commandes."
-      },
-      "currentDetails": "La simulation est dans son état initial."
+        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+      }
     },
     "systems": {
       "screenSummary": {
-        "playArea": "La zone de jeu affiche le contenu principal de la simulation.",
+        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
         "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Explorez la simulation en interagissant avec ses commandes."
-      },
-      "currentDetails": "La simulation est dans son état initial."
+        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+      }
     },
     "eigen": {
       "screenSummary": {
-        "playArea": "La zone de jeu affiche le contenu principal de la simulation.",
+        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
         "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Explorez la simulation en interagissant avec ses commandes."
-      },
-      "currentDetails": "La simulation est dans son état initial."
+        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+      }
     },
     "projection": {
       "screenSummary": {
-        "playArea": "La zone de jeu affiche le contenu principal de la simulation.",
+        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
         "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Explorez la simulation en interagissant avec ses commandes."
-      },
-      "currentDetails": "La simulation est dans son état initial."
+        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+      }
     },
     "basis": {
       "screenSummary": {
-        "playArea": "La zone de jeu affiche le contenu principal de la simulation.",
+        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
         "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Explorez la simulation en interagissant avec ses commandes."
-      },
-      "currentDetails": "La simulation est dans son état initial."
+        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+      }
     },
     "svd": {
       "screenSummary": {
-        "playArea": "La zone de jeu affiche le contenu principal de la simulation.",
+        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
         "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Explorez la simulation en interagissant avec ses commandes."
-      },
-      "currentDetails": "La simulation est dans son état initial."
+        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+      }
     }
   },
   "preferences": {
