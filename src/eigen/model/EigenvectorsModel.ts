@@ -1,53 +1,135 @@
-/**
- * EigenvectorsModel.ts
- *
- * The top-level model for the simulation screen.
- *
- * Add your simulation's state here using reactive Property objects from
- * scenerystack/axon. The view observes these properties and updates automatically.
- *
- * ── Example ──────────────────────────────────────────────────────────────────
- *   import { BooleanProperty, NumberProperty } from "scenerystack/axon";
- *
- *   public readonly isRunningProperty = new BooleanProperty(false);
- *   public readonly timeProperty = new NumberProperty(0);    // seconds
- *
- * ── Step cycle ────────────────────────────────────────────────────────────────
- * The Sim calls step(dt) on every animation frame. Advance your model state
- * in that method (e.g. integrate equations, update positions).
- *
- * ── Reset ─────────────────────────────────────────────────────────────────────
- * reset() is called when the user presses Reset All. Call .reset() on every
- * Property declared here.
- */
+import { BooleanProperty, DerivedProperty, NumberProperty, Property } from "scenerystack/axon";
+import { Range, roundSymmetric } from "scenerystack/dot";
 import type { TModel } from "scenerystack/joist";
+import { characteristic, eigen } from "../../common/model/Eigen.js";
+import { apply, cross, dotProduct, norm, type Vec } from "../../common/model/LinearAlgebra.js";
+import { MatrixModel } from "../../common/model/MatrixModel.js";
+import {
+  EPS,
+  HANDLE_X_RANGE,
+  HANDLE_Y_RANGE,
+  ITERATIONS,
+  PARALLEL_SIN,
+  SWEEP_SECONDS,
+} from "../../LinearTransformationsConstants.js";
+
+const FULL_TURN = 360;
+const DIRECTION_LENGTH = 2;
+
+function direction(angle: number): Vec {
+  const radians = (angle * Math.PI) / 180;
+  return [DIRECTION_LENGTH * Math.cos(radians), DIRECTION_LENGTH * Math.sin(radians)];
+}
 
 export class EigenvectorsModel implements TModel {
-  /**
-   * Resets all model state to initial values.
-   * Called when the user presses the Reset All button.
-   */
+  public readonly matrix = new MatrixModel("symmetric");
+  public readonly angleProperty = new NumberProperty(30, { range: new Range(0, FULL_TURN - EPS) });
+  public readonly sweepingProperty = new BooleanProperty(false);
+  public readonly traceProperty = new Property<Vec[]>([]);
+  public readonly showEigenProperty = new BooleanProperty(false);
+  public readonly iterateProperty = new BooleanProperty(false);
+  public readonly x0Property = new NumberProperty(1, { range: HANDLE_X_RANGE });
+  public readonly y0Property = new NumberProperty(0.5, { range: HANDLE_Y_RANGE });
+
+  private readonly properties = [
+    this.angleProperty,
+    this.sweepingProperty,
+    this.traceProperty,
+    this.showEigenProperty,
+    this.iterateProperty,
+    this.x0Property,
+    this.y0Property,
+  ];
+  private sweepElapsed = 0;
+
+  public readonly vProperty = new DerivedProperty([this.angleProperty], direction);
+  public readonly avProperty = new DerivedProperty([this.matrix.matrixProperty, this.vProperty], apply);
+  public readonly alignmentProperty = new DerivedProperty([this.vProperty, this.avProperty], (v, av) => {
+    const length = norm(av);
+    return {
+      aligned: length <= EPS || Math.abs(cross(v, av)) <= PARALLEL_SIN * norm(v) * length,
+      lambda: dotProduct(av, v) / dotProduct(v, v),
+    };
+  });
+  public readonly characteristicProperty = new DerivedProperty([this.matrix.matrixProperty], characteristic);
+  public readonly eigenProperty = new DerivedProperty([this.matrix.matrixProperty], eigen);
+  public readonly orbitProperty = new DerivedProperty(
+    [this.iterateProperty, this.matrix.matrixProperty, this.x0Property, this.y0Property],
+    (iterate, matrix, x, y) => {
+      const orbit: Vec[] = [[x, y]];
+      if (iterate) {
+        let position: Vec = [x, y];
+        for (let n = 0; n < ITERATIONS; n++) {
+          position = apply(matrix, position);
+          orbit.push(position);
+        }
+      }
+      return orbit;
+    },
+  );
+
+  public constructor() {
+    this.matrix.matrixProperty.lazyLink(this.onMatrixChange);
+  }
+
+  private readonly onMatrixChange = () => {
+    this.sweepingProperty.value = false;
+    this.clearTrace();
+  };
+
+  public setDirection([x, y]: Vec): void {
+    if (Math.hypot(x, y) > EPS) {
+      const degrees = roundSymmetric((Math.atan2(y, x) * 180) / Math.PI);
+      this.angleProperty.value = (degrees + FULL_TURN) % FULL_TURN;
+    }
+  }
+
+  public startSweep(): void {
+    this.sweepElapsed = 0;
+    this.angleProperty.value = 0;
+    this.traceProperty.value = [this.avProperty.value];
+    this.sweepingProperty.value = true;
+  }
+
+  public clearTrace(): void {
+    this.traceProperty.reset();
+  }
+
+  // LabView owns the frame callback. A TModel.step would also run in Joist.
+  public stepSweep(dt: number): void {
+    if (!this.sweepingProperty.value || dt <= 0) {
+      return;
+    }
+
+    this.sweepElapsed = Math.min(this.sweepElapsed + dt, SWEEP_SECONDS);
+    const complete = SWEEP_SECONDS - this.sweepElapsed <= EPS;
+    const angle = complete ? 0 : (FULL_TURN * this.sweepElapsed) / SWEEP_SECONDS;
+    this.angleProperty.value = this.angleProperty.range.constrainValue(angle);
+    this.traceProperty.value = [...this.traceProperty.value, this.avProperty.value];
+    if (complete) {
+      this.sweepingProperty.value = false;
+    }
+  }
+
   public reset(): void {
-    // TODO: call .reset() on every Property declared in this model
+    this.matrix.reset();
+    this.sweepElapsed = 0;
+    for (const property of this.properties) {
+      property.reset();
+    }
   }
 
-  /**
-   * Steps the model forward by dt seconds.
-   * Called every animation frame by the Sim framework.
-   *
-   * @param _dt - elapsed time in seconds since the last frame
-   */
-  public step(_dt: number): void {
-    // For play/pause, speed, and elapsed time, compose TimeModel instead of hand-rolling
-    // a clock: copy src/common/TimeModel.ts (and tests/TimeModel.test.ts) from
-    // SceneryStackTemplate unchanged — Baton's drift check requires an exact match —
-    // then hold one in a readonly `timer` field, step/reset/dispose it, and list it
-    // in tests/memory-leak.test.ts.
-    // TODO: advance simulation state here
-  }
-
-  /** Release owned Properties / composed models. */
   public dispose(): void {
-    // No resources yet.
+    this.matrix.matrixProperty.unlink(this.onMatrixChange);
+    this.orbitProperty.dispose();
+    this.eigenProperty.dispose();
+    this.characteristicProperty.dispose();
+    this.alignmentProperty.dispose();
+    this.avProperty.dispose();
+    this.vProperty.dispose();
+    for (const property of this.properties) {
+      property.dispose();
+    }
+    this.matrix.dispose();
   }
 }

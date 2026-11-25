@@ -26,9 +26,29 @@
   "a11y": {
     "span": {
       "screenSummary": {
-        "playArea": "A coordinate grid shows the x- and y-axes.",
-        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Use Reset All to restore the screen."
+        "playArea": "Two vectors u and w, their combination c₁u + c₂w, and optionally their span.",
+        "controlArea": "Drag u and w, set c₁ and c₂, show the span, or try to hit a target.",
+        "interactionHint": "Can every point be reached? When can't it?"
+      },
+      "controls": {
+        "c1": "c₁",
+        "c2": "c₂",
+        "showSpan": "Show span",
+        "targetMode": "Target",
+        "newTarget": "New target",
+        "solve": "Solve",
+        "u": "u",
+        "w": "w",
+        "handleU": "Vector u",
+        "handleW": "Vector w",
+        "result": "c₁u + c₂w = ({{x}}, {{y}})",
+        "determinant": "det[u w] = {{value}}",
+        "independent": "Independent: {u, w} is a basis of ℝ²",
+        "dependent": "Dependent: the span is a line",
+        "zero": "The span is {0}",
+        "targetPoint": "Target ({{x}}, {{y}})",
+        "targetHit": "Target ({{x}}, {{y}}): hit!",
+        "solveFailed": "The coefficients needed are outside ±3"
       }
     },
     "transform": {
@@ -70,9 +90,30 @@
     },
     "eigen": {
       "screenSummary": {
-        "playArea": "A coordinate grid shows the x- and y-axes.",
-        "controlArea": "The control area has a Reset All button that returns the simulation to its starting state.",
-        "interactionHint": "Use Reset All to restore the screen."
+        "playArea": "A vector v and its image Av; eigen-directions where they line up.",
+        "controlArea": "Turn v, sweep it around, show eigenvectors, or iterate A.",
+        "interactionHint": "Find the directions that A only stretches."
+      },
+      "controls": {
+        "matrixA": "A",
+        "direction": "Direction of v",
+        "directionHandle": "v direction",
+        "sweep": "Sweep",
+        "clearTrace": "Clear trace",
+        "showEigen": "Show eigenvectors",
+        "iterate": "Iterate xₖ₊₁ = A xₖ",
+        "seedHandle": "Initial vector x₀",
+        "v": "v",
+        "av": "Av",
+        "image": "Av = ({{x}}, {{y}})",
+        "aligned": "Av = λv with λ ≈ {{value}}",
+        "unaligned": "v and Av point different ways",
+        "equation": "λ²{{linear}}{{constant}} = 0",
+        "distinct": "λ₁ = {{first}}, λ₂ = {{second}}",
+        "defective": "λ = {{value}} (repeated); one eigen-direction",
+        "scalar": "λ = {{value}}: every vector is an eigenvector",
+        "complex": "λ = {{real}} ± {{imaginary}}i: no real eigenvectors (rotation-like)",
+        "iterationNorm": "‖A¹⁰x₀‖ = {{value}}"
       }
     },
     "projection": {

@@ -44,8 +44,8 @@ export const PANEL_GAP = 18;
 /** Gap between title and plot/panel row (px). */
 export const TITLE_TO_PLOT_GAP = 14;
 
-/** Design height (px) for the plot plus two rows of matrix spinners. */
-export const TRANSFORM_LAYOUT_HEIGHT = 655;
+/** Shared lab design height (px), including space for matrix editors. */
+export const LAYOUT_HEIGHT = 655;
 
 /** Visible model window, in units. Plane keeps square units at 46.75 px per unit. */
 export const X_RANGE = new Range(-5.5, 5.5);
@@ -66,13 +66,17 @@ export const KEYBOARD_STEP = 0.1;
 export const EPS = 1e-9;
 
 /** Sine of the angular tolerance for testing parallel eigenvectors. */
-const PARALLEL_SIN = Math.sin((1.5 * Math.PI) / 180);
+export const PARALLEL_SIN = Math.sin((1.5 * Math.PI) / 180);
 
 /** The transformed grid uses integer lines from minus this value to plus it. */
 export const GRID_LINES = 8;
-const SWEEP_SECONDS = 6;
+
+/** Duration of a complete eigenvector sweep (seconds). */
+export const SWEEP_SECONDS = 6;
 const SVD_PLAY_SECONDS = 4.5;
-const ITERATIONS = 10;
+
+/** Number of matrix applications shown in the iteration orbit. */
+export const ITERATIONS = 10;
 
 LinearTransformationsNamespace.register("LinearTransformationsConstants", {
   SCREEN_VIEW_MARGIN,
@@ -83,7 +87,7 @@ LinearTransformationsNamespace.register("LinearTransformationsConstants", {
   PANEL_MIN_WIDTH,
   PANEL_GAP,
   TITLE_TO_PLOT_GAP,
-  TRANSFORM_LAYOUT_HEIGHT,
+  LAYOUT_HEIGHT,
   X_RANGE,
   Y_RANGE,
   HANDLE_X_RANGE,

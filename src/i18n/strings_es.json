@@ -1,10 +1,10 @@
 {
   "title": "Transformaciones lineales",
   "screens": {
-    "span": "Span",
+    "span": "Subespacio generado",
     "transform": "Transformación",
     "systems": "Systems",
-    "eigen": "Eigenvectors",
+    "eigen": "Vectores propios",
     "projection": "Projection",
     "basis": "Change of Basis",
     "svd": "SVD"
@@ -26,9 +26,29 @@
   "a11y": {
     "span": {
       "screenSummary": {
-        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
-        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+        "playArea": "Dos vectores u y w, su combinación c₁u + c₂w y, si se desea, el subespacio que generan.",
+        "controlArea": "Arrastra u y w, ajusta c₁ y c₂, muestra el subespacio generado o intenta alcanzar un objetivo.",
+        "interactionHint": "¿Se puede alcanzar cualquier punto? ¿En qué casos es imposible?"
+      },
+      "controls": {
+        "c1": "c₁",
+        "c2": "c₂",
+        "showSpan": "Mostrar el subespacio generado",
+        "targetMode": "Objetivo",
+        "newTarget": "Nuevo objetivo",
+        "solve": "Resolver",
+        "u": "u",
+        "w": "w",
+        "handleU": "Vector u",
+        "handleW": "Vector w",
+        "result": "c₁u + c₂w = ({{x}}; {{y}})",
+        "determinant": "det[u w] = {{value}}",
+        "independent": "Independientes: {u, w} es una base de ℝ²",
+        "dependent": "Dependientes: el subespacio generado es una recta",
+        "zero": "El subespacio generado es {0}",
+        "targetPoint": "Objetivo ({{x}}; {{y}})",
+        "targetHit": "Objetivo ({{x}}; {{y}}): ¡alcanzado!",
+        "solveFailed": "Los coeficientes necesarios están fuera del intervalo [−3, 3]"
       }
     },
     "transform": {
@@ -70,9 +90,30 @@
     },
     "eigen": {
       "screenSummary": {
-        "playArea": "Una cuadrícula de coordenadas muestra los ejes x e y.",
-        "controlArea": "El área de control tiene un botón Restablecer todo que devuelve la simulación a su estado inicial.",
-        "interactionHint": "Usa Restablecer todo para volver al estado inicial de la pantalla."
+        "playArea": "Un vector v y su imagen Av, con las direcciones propias en las que se alinean.",
+        "controlArea": "Gira v, haz un barrido completo, muestra los vectores propios o itera A.",
+        "interactionHint": "Encuentra las direcciones en las que A actúa multiplicando por un escalar."
+      },
+      "controls": {
+        "matrixA": "A",
+        "direction": "Dirección de v",
+        "directionHandle": "Dirección de v",
+        "sweep": "Barrido",
+        "clearTrace": "Borrar el rastro",
+        "showEigen": "Mostrar los vectores propios",
+        "iterate": "Iterar xₖ₊₁ = A xₖ",
+        "seedHandle": "Vector inicial x₀",
+        "v": "v",
+        "av": "Av",
+        "image": "Av = ({{x}}; {{y}})",
+        "aligned": "Av = λv con λ ≈ {{value}}",
+        "unaligned": "v y Av apuntan en direcciones distintas",
+        "equation": "λ²{{linear}}{{constant}} = 0",
+        "distinct": "λ₁ = {{first}}, λ₂ = {{second}}",
+        "defective": "λ = {{value}} (doble); una sola dirección propia",
+        "scalar": "λ = {{value}}: toda dirección es una dirección propia",
+        "complex": "λ = {{real}} ± {{imaginary}}i: no hay vectores propios reales (comportamiento de rotación)",
+        "iterationNorm": "‖A¹⁰x₀‖ = {{value}}"
       }
     },
     "projection": {

@@ -1,8 +1,7 @@
 import { Multilink } from "scenerystack/axon";
-import { Bounds2 } from "scenerystack/dot";
 import { StringUtils } from "scenerystack/phetcommon";
 import { HBox, Node } from "scenerystack/scenery";
-import { ScreenView, type ScreenViewOptions } from "scenerystack/sim";
+import type { ScreenViewOptions } from "scenerystack/sim";
 import {
   arrow,
   checkbox,
@@ -24,7 +23,7 @@ import { drawParallelogram, drawPolygon, drawTransformedGrid, F_SHAPE } from "..
 import { VectorHandle } from "../../common/view/VectorHandle.js";
 import { StringManager } from "../../i18n/StringManager.js";
 import Colors from "../../LinearTransformationsColors.js";
-import { ENTRY_RANGE, EPS, TRANSFORM_LAYOUT_HEIGHT, X_RANGE, Y_RANGE } from "../../LinearTransformationsConstants.js";
+import { ENTRY_RANGE, EPS, X_RANGE, Y_RANGE } from "../../LinearTransformationsConstants.js";
 import type { TransformModel } from "../model/TransformModel.js";
 
 export class TransformScreenView extends LabView {
@@ -68,7 +67,7 @@ export class TransformScreenView extends LabView {
         const w = column2(m);
         plane.axes(ctx, { ...colors, grid: colors.faintGrid });
         if (showGridProperty.value) {
-          drawTransformedGrid(ctx, plane, m, colors.grid);
+          drawTransformedGrid(ctx, plane, m, colors.transformedGrid);
         }
         drawParallelogram(
           ctx,
@@ -231,10 +230,7 @@ export class TransformScreenView extends LabView {
         listParent,
         reset: () => model.reset(),
       },
-      {
-        layoutBounds: new Bounds2(0, 0, ScreenView.DEFAULT_LAYOUT_BOUNDS.width, TRANSFORM_LAYOUT_HEIGHT),
-        ...options,
-      },
+      options,
     );
     this.addDisposable(visibilityLink, details, ...readouts, productLabel);
   }

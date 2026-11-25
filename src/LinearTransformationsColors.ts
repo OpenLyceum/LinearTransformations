@@ -133,6 +133,10 @@ const LinearTransformationsColors = {
     default: "rgba(255,188,117,0.3)",
     projector: "rgba(152,80,33,0.2)",
   }),
+  transformedGridColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "transformedGrid", {
+    default: "rgba(79,195,247,0.45)",
+    projector: "rgba(11,92,173,0.4)",
+  }),
   faintGridColorProperty: new ProfileColorProperty(LinearTransformationsNamespace, "faintGrid", {
     default: "#2a3a5e",
     projector: "#dddddd",

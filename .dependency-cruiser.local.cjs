@@ -1,5 +1,5 @@
 /** These tested model modules acquire application callers as the screens are implemented. */
-const phaseOneModels = "^src/common/model/(Eigen|LeastSquares|RowReduction|Svd)\\.ts$";
+const phaseOneModels = "^src/common/model/(LeastSquares|RowReduction|Svd)\\.ts$";
 
 module.exports = {
   omitRules: ["no-unreachable-from-entry"],

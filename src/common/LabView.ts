@@ -8,6 +8,7 @@ import { ScreenSummaryContent, ScreenView, type ScreenViewOptions } from "scener
 import { AquaRadioButtonGroup, Checkbox, ComboBox, HSlider, RectangularPushButton } from "scenerystack/sun";
 import Colors from "../LinearTransformationsColors.js";
 import {
+  LAYOUT_HEIGHT,
   PANEL_GAP,
   PANEL_MIN_WIDTH,
   PLOT_HEIGHT,
@@ -46,13 +47,22 @@ function text(value: StringSource, size: number, width: number, bold = false): T
   });
 }
 
-export function slider(label: TReadOnlyProperty<string>, value: NumberProperty, step: number): VBox {
-  const caption = computed([label, value], () => `${label.value}  ${format(value.value)}`);
-  const control = new HSlider(value, value.range, {
+export function slider(
+  label: TReadOnlyProperty<string>,
+  value: NumberProperty,
+  step: number,
+  { suffix = "", range = value.range }: { suffix?: string; range?: Range } = {},
+): VBox {
+  const caption = computed(
+    [label, value],
+    () => `${label.value}  ${format(range.constrainValue(value.value))}${suffix}`,
+  );
+  const control = new HSlider(value, range, {
     accessibleName: label,
     keyboardStep: step,
-    constrainValue: (next) => value.range.constrainValue(toFixedNumber(roundSymmetric(next / step) * step, 8)),
-    pdomCreateAriaValueText: (current) => format(current ?? value.value),
+    constrainValue: (next) => range.constrainValue(toFixedNumber(roundSymmetric(next / step) * step, 8)),
+    pdomMapPDOMValue: (current) => range.constrainValue(current),
+    pdomCreateAriaValueText: (current) => `${format(current ?? value.value)}${suffix}`,
     trackSize: new Dimension2(243, 4),
     thumbSize: new Dimension2(16, 21),
     thumbFill: Colors.accentColorProperty,
@@ -169,7 +179,11 @@ export class LabView extends ScreenView {
       interactionHintContent: config.summary.interactionHintStringProperty,
       currentDetailsContent: config.details,
     });
-    super({ ...options, screenSummaryContent: summary });
+    super({
+      ...options,
+      layoutBounds: new Bounds2(0, 0, ScreenView.DEFAULT_LAYOUT_BOUNDS.width, LAYOUT_HEIGHT),
+      screenSummaryContent: summary,
+    });
     this.isDisposable = true;
 
     this.stepCallback = config.step;
@@ -267,6 +281,7 @@ type PlotColors = {
   positiveArea: string;
   negativeArea: string;
   faintGrid: string;
+  transformedGrid: string;
 };
 
 export class PlotCanvas extends CanvasNode {
@@ -292,6 +307,7 @@ export class PlotCanvas extends CanvasNode {
       Colors.positiveAreaColorProperty,
       Colors.negativeAreaColorProperty,
       Colors.faintGridColorProperty,
+      Colors.transformedGridColorProperty,
       localeProperty,
     ];
     for (const dependency of paintDependencies) {
@@ -323,6 +339,7 @@ export class PlotCanvas extends CanvasNode {
       positiveArea: Colors.positiveAreaColorProperty.value.toCSS(),
       negativeArea: Colors.negativeAreaColorProperty.value.toCSS(),
       faintGrid: Colors.faintGridColorProperty.value.toCSS(),
+      transformedGrid: Colors.transformedGridColorProperty.value.toCSS(),
     };
     context.fillStyle = colors.background;
     context.fillRect(0, 0, PLOT_WIDTH, PLOT_HEIGHT);

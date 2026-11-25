@@ -1,10 +1,10 @@
 {
   "title": "Transformations linéaires",
   "screens": {
-    "span": "Span",
+    "span": "Sous-espace engendré",
     "transform": "Transformation",
     "systems": "Systems",
-    "eigen": "Eigenvectors",
+    "eigen": "Vecteurs propres",
     "projection": "Projection",
     "basis": "Change of Basis",
     "svd": "SVD"
@@ -26,9 +26,29 @@
   "a11y": {
     "span": {
       "screenSummary": {
-        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
-        "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+        "playArea": "Deux vecteurs u et w, leur combinaison c₁u + c₂w et, au choix, le sous-espace qu’ils engendrent.",
+        "controlArea": "Déplacez u et w, réglez c₁ et c₂, affichez le sous-espace engendré ou essayez d’atteindre une cible.",
+        "interactionHint": "Peut-on atteindre tous les points ? Dans quels cas est-ce impossible ?"
+      },
+      "controls": {
+        "c1": "c₁",
+        "c2": "c₂",
+        "showSpan": "Afficher le sous-espace engendré",
+        "targetMode": "Cible",
+        "newTarget": "Nouvelle cible",
+        "solve": "Résoudre",
+        "u": "u",
+        "w": "w",
+        "handleU": "Vecteur u",
+        "handleW": "Vecteur w",
+        "result": "c₁u + c₂w = ({{x}} ; {{y}})",
+        "determinant": "det[u w] = {{value}}",
+        "independent": "Vecteurs libres : {u, w} est une base de ℝ²",
+        "dependent": "Vecteurs liés : le sous-espace engendré est une droite",
+        "zero": "Le sous-espace engendré est {0}",
+        "targetPoint": "Cible ({{x}} ; {{y}})",
+        "targetHit": "Cible ({{x}} ; {{y}}) : atteinte !",
+        "solveFailed": "Les coefficients nécessaires sont hors de l’intervalle [−3 ; 3]"
       }
     },
     "transform": {
@@ -70,9 +90,30 @@
     },
     "eigen": {
       "screenSummary": {
-        "playArea": "Une grille de coordonnées montre les axes des x et des y.",
-        "controlArea": "La zone de contrôle comporte un bouton Tout réinitialiser qui ramène la simulation à son état initial.",
-        "interactionHint": "Utilisez Tout réinitialiser pour rétablir l’état initial de l’écran."
+        "playArea": "Un vecteur v et son image Av, ainsi que les directions propres où ils sont alignés.",
+        "controlArea": "Faites tourner v, lancez un tour complet, affichez les vecteurs propres ou itérez A.",
+        "interactionHint": "Trouvez les directions dans lesquelles A agit par multiplication par un scalaire."
+      },
+      "controls": {
+        "matrixA": "A",
+        "direction": "Direction de v",
+        "directionHandle": "Direction de v",
+        "sweep": "Tour complet",
+        "clearTrace": "Effacer la trace",
+        "showEigen": "Afficher les vecteurs propres",
+        "iterate": "Itérer xₖ₊₁ = A xₖ",
+        "seedHandle": "Vecteur initial x₀",
+        "v": "v",
+        "av": "Av",
+        "image": "Av = ({{x}} ; {{y}})",
+        "aligned": "Av = λv avec λ ≈ {{value}}",
+        "unaligned": "v et Av ont des directions différentes",
+        "equation": "λ²{{linear}}{{constant}} = 0",
+        "distinct": "λ₁ = {{first}}, λ₂ = {{second}}",
+        "defective": "λ = {{value}} (double) ; une seule direction propre",
+        "scalar": "λ = {{value}} : toute direction est une direction propre",
+        "complex": "λ = {{real}} ± {{imaginary}}i : aucun vecteur propre réel (comportement de type rotation)",
+        "iterationNorm": "‖A¹⁰x₀‖ = {{value}}"
       }
     },
     "projection": {
